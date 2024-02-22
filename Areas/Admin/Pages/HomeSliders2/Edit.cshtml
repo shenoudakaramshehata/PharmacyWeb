@@ -1,0 +1,184 @@
+﻿@page
+@model Pharmacy.Areas.Admin.Pages.HomeSliders2.EditModel
+@{
+}
+
+
+<div class="page-content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-12">
+				<div class="card">
+					<div class="card-header">
+						<h2 class="card-header d-flex justify-content-between align-items-center">
+							@sharedResource["Edit"]  @sharedResource["HomeSlider"]
+							<a asp-page="Index" class="btn btn-primary"> @sharedResource["Back"]</a>
+						</h2>
+					</div>
+					<div class="card-body">
+						<div class="text-danger DeleteValidation ">@Html.ValidationMessage("Validation") </div>
+
+						<br />
+						<form id="form" method="post" enctype="multipart/form-data">
+							@Html.Hidden("ItemId", "")
+							@Html.Hidden("CategoryId", "")
+							@(Html.DevExtreme().Form<Pharmacy.Models.HomeSlider>()
+
+							.ID("HomeSliderForm")
+							.OnInitialized("onFormInitialized")
+
+
+							.FormData(Model.homeSlider)
+
+							.Items(items => {
+
+							items.AddSimpleFor(m => m.HomeSliderId).Visible(false);
+							items.AddSimpleFor(m => m.HomeSliderTypeId).IsRequired(true).Label(k => k.Text(sharedResource["SelectSliderType"]))
+							.Editor(e => e
+							.Lookup()
+							.DataSource(ds => ds.WebApi().Controller("HomeSliders").LoadAction("HomeSliderTypesLookup").Key("Value"))
+							.ValueExpr("Value")
+							.DisplayExpr("Text")
+							.OnValueChanged("onValueChanged")
+							);
+
+							items.AddSimple()
+							.Editor(e => e
+							.Lookup()
+							.DataSource(ds => ds.WebApi().Controller("ItemImages").LoadAction("ItemsLookup").Key("Value"))
+							.DisplayExpr("Text")
+							.ValueExpr("Value")
+							.OnSelectionChanged("ItemValueChanged")
+							.Value(Model.EntityId)
+							).Label(k => k.Text(sharedResource["Item"])).Name("item");
+
+
+							items.AddSimple()
+							.Editor(e => e
+							.Lookup()
+							.DataSource(ds => ds.WebApi().Controller("Items").LoadAction("CategoriesLookup").Key("Value"))
+							.ValueExpr("Value")
+							.DisplayExpr("Text")
+							.OnSelectionChanged("CategoryValueChanged")
+							.Value(Model.EntityId)
+
+
+							).Label(k => k.Text(sharedResource["Category"])).Name("Category");
+
+							items.AddSimpleFor(m => m.HomeSliderEntityId).Name("URL").Label(k => k.Text(sharedResource["ExternalURL"]));
+
+
+							items.AddSimple().Label(k => k.Text(sharedResource["Picture"])).Template(@<text>
+									<div>
+										<img width="250" height="250" src="/Images/Slider/@Model.homeSlider.HomeSliderPic" alt="Slider Picture" />
+									</div>
+								</text> );
+
+							items.AddSimpleFor(m => m.HomeSliderPic).Label(k => k.Text(sharedResource["Change_Picture"])).Template(@<text>
+
+
+									@(Html.DevExtreme().FileUploader()
+								.Name("Photo")
+								.SelectButtonText(sharedResource["Change_Picture"])
+								.LabelText("")
+								.Accept("image/*")
+								.UploadMode(FileUploadMode.UseForm)
+								.RtlEnabled(bool.Parse(sharedResource["ArLang"]))
+								.Height(70)
+									)
+
+								</text> );
+							items.AddButton()
+							.ColSpan(3)
+							.HorizontalAlignment(HorizontalAlignment.Right)
+							.ButtonOptions(b => b.Text(sharedResource["Save"])
+							.Type(ButtonType.Success)
+							.UseSubmitBehavior(true)).CssClass("invers");
+
+
+
+							})
+							)
+
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	var form
+	function onFormInitialized(e) {
+
+		form = e.component;
+
+		var sliderTypeId =@Model.homeSlider.HomeSliderTypeId;
+
+
+
+		if (sliderTypeId === 1) {
+			form.itemOption("Category", "visible", true);
+			form.itemOption("item", "visible", false);
+			form.itemOption("URL", "visible", false);
+
+		}
+		if (sliderTypeId === 2) {
+			form.itemOption("item", "visible", true)
+			form.itemOption("URL", "visible", false);
+			form.itemOption("Category", "visible", false);
+			 }
+
+
+
+
+
+		if (sliderTypeId === 3) {
+			form.itemOption("URL", "visible", true);
+			form.itemOption("item", "visible", false)
+			form.itemOption("Category", "visible", false);
+
+		}
+	}
+
+
+
+
+
+
+
+	function CategoryValueChanged(data) {
+		$("#CategoryId").val(data.selectedItem.Value);
+	}
+
+	function ItemValueChanged(data) {
+		$("#ItemId").val(data.selectedItem.Value);
+	}
+
+	function onValueChanged(e) {
+
+		if (e.value === 1) {
+			form.itemOption("Category", "visible", true);
+			form.itemOption("item", "visible", false);
+			form.itemOption("URL", "visible", false);
+		}
+		if (e.value === 2) {
+			form.itemOption("item", "visible", true)
+			form.itemOption("URL", "visible", false);
+			form.itemOption("Category", "visible", false);
+		}
+
+
+
+
+
+		if (e.value === 3) {
+			form.itemOption("URL", "visible", true);
+			form.itemOption("item", "visible", false)
+			form.itemOption("Category", "visible", false);
+		}
+
+	}
+
+
+</script>

@@ -1,0 +1,28 @@
+﻿@page
+@model Pharmacy.Areas.Admin.Pages.Newsletter22.CreateModel
+@{
+}
+<br />
+<br />
+<br />
+<form id="form" method="post">
+    @(Html.DevExtreme().Form<Pharmacy.Models.Newsletter>()
+    .Items(items => {
+
+
+        items.AddSimpleFor(m => m.Email);
+
+        items.AddSimpleFor(m => m.Date);
+
+        items.AddButton()
+
+
+                        .ColSpan(3)
+                        .HorizontalAlignment(HorizontalAlignment.Right)
+                        .ButtonOptions(b => b.Text(sharedResource["Save"])
+                        .Type(ButtonType.Success)
+                        .UseSubmitBehavior(true)).CssClass("invers");
+    })
+
+)
+    </form>

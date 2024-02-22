@@ -1,0 +1,135 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>aspnet-Optics-08598207-6256-448E-B750-A46599A0C125</UserSecretsId>
+    <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
+    <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <WarningLevel>0</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Areas\Admin\Pages\CollectionItems\**" />
+    <Compile Remove="Areas\Admin\Pages\SubCategories\**" />
+    <Compile Remove="Controller\**" />
+    <Content Remove="Areas\Admin\Pages\CollectionItems\**" />
+    <Content Remove="Areas\Admin\Pages\SubCategories\**" />
+    <Content Remove="Controller\**" />
+    <EmbeddedResource Remove="Areas\Admin\Pages\CollectionItems\**" />
+    <EmbeddedResource Remove="Areas\Admin\Pages\SubCategories\**" />
+    <EmbeddedResource Remove="Controller\**" />
+    <None Remove="Areas\Admin\Pages\CollectionItems\**" />
+    <None Remove="Areas\Admin\Pages\SubCategories\**" />
+    <None Remove="Controller\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Controllers\integration.cs" />
+    <Compile Remove="Controllers\IntegrationeController.cs" />
+    <Compile Remove="Controllers\PharmacyAPIs.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="Pages\Terms.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="Resources\SharedResource.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
+    <PackageReference Include="DevExpress.AspNetCore.Reporting" Version="21.2.6" />
+    <PackageReference Include="DevExpress.Reporting.Core" Version="21.2.6" />
+    <PackageReference Include="DevExtreme.AspNet.Data" Version="2.8.2" />
+    <PackageReference Include="DevExtreme.AspNet.Core" Version="21.2.6" />
+    <PackageReference Include="MailKit" Version="4.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.11" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.12" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.12" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.11" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.12" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.12">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+    <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.1.175" />
+    <PackageReference Include="MimeKit" Version="4.0.0" />
+    <PackageReference Include="NToastNotify" Version="7.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
+    <Folder Include="wwwroot\Images\Category\" />
+    <Folder Include="wwwroot\Images\Customer\" />
+    <Folder Include="wwwroot\Images\Brand\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Areas\Admin\Pages\Areas\Add.cshtml" />
+    <None Include="Areas\Admin\Pages\Areas\Delete.cshtml" />
+    <None Include="Areas\Admin\Pages\Areas\Details.cshtml" />
+    <None Include="Areas\Admin\Pages\Areas\Edit.cshtml" />
+    <None Include="Areas\Admin\Pages\Areas\Index.cshtml" />
+    <None Include="Areas\Admin\Pages\Brands\Add.cshtml" />
+    <None Include="Areas\Admin\Pages\Brands\Delete.cshtml" />
+    <None Include="Areas\Admin\Pages\Brands\Details.cshtml" />
+    <None Include="Areas\Admin\Pages\Brands\Edit.cshtml" />
+    <None Include="Areas\Admin\Pages\Brands\Index.cshtml" />
+    <None Include="Areas\Admin\Pages\Categories\Add.cshtml" />
+    <None Include="Areas\Admin\Pages\Categories\Delete.cshtml" />
+    <None Include="Areas\Admin\Pages\Categories\Details.cshtml" />
+    <None Include="Areas\Admin\Pages\Categories\Edit.cshtml" />
+    <None Include="Areas\Admin\Pages\Categories\Index.cshtml" />
+    <None Include="Areas\Admin\Pages\ChangePassword\ChangeAdminPassword.cshtml" />
+    <None Include="Areas\Admin\Pages\Collections2\Create.cshtml" />
+    <None Include="Areas\Admin\Pages\Collections2\Delete.cshtml" />
+    <None Include="Areas\Admin\Pages\Collections2\Details.cshtml" />
+    <None Include="Areas\Admin\Pages\Collections2\Edit.cshtml" />
+    <None Include="Areas\Admin\Pages\Collections2\Index.cshtml" />
+    <None Include="Areas\Admin\Pages\FAQs2\Create.cshtml" />
+    <None Include="Areas\Admin\Pages\FAQs2\Delete.cshtml" />
+    <None Include="Areas\Admin\Pages\FAQs2\Details.cshtml" />
+    <None Include="Areas\Admin\Pages\FAQs2\Edit.cshtml" />
+    <None Include="Areas\Admin\Pages\FAQs2\Index.cshtml" />
+    <None Include="Areas\Admin\Pages\HomeSliders2\Create.cshtml" />
+    <None Include="Areas\Admin\Pages\HomeSliders2\Delete.cshtml" />
+    <None Include="Areas\Admin\Pages\HomeSliders2\Edit.cshtml" />
+    <None Include="Areas\Admin\Pages\HomeSliders2\Index.cshtml" />
+    <None Include="Areas\Admin\Pages\Items\Add.cshtml" />
+    <None Include="Areas\Admin\Pages\Items\Delete.cshtml" />
+    <None Include="Areas\Admin\Pages\Items\Details.cshtml" />
+    <None Include="Areas\Admin\Pages\Items\Edit.cshtml" />
+    <None Include="Areas\Admin\Pages\Items\Index.cshtml" />
+    <None Include="Areas\Admin\Pages\PageContent2\Edit.cshtml" />
+    <None Include="Areas\Admin\Pages\PageContent2\Index.cshtml" />
+    <None Include="Areas\Admin\Pages\Sections2\Create.cshtml" />
+    <None Include="Areas\Admin\Pages\Sections2\Delete.cshtml" />
+    <None Include="Areas\Admin\Pages\Sections2\Edit.cshtml" />
+    <None Include="Areas\Admin\Pages\Sections2\Index.cshtml" />
+    <None Include="Areas\Admin\Pages\SystemConfigration\ContactsInfo.cshtml" />
+    <None Include="Areas\Admin\Pages\SystemConfigration\EditPageContent.cshtml" />
+    <None Include="Areas\Admin\Pages\SystemConfigration\FAQList.cshtml" />
+    <None Include="Areas\Admin\Pages\SystemConfigration\PagesContent.cshtml" />
+    <None Include="Pages\Shared\Components\InputForm\_Invoice.cshtml" />
+    <None Include="Pages\Terms.cshtml" />
+    <None Include="wwwroot\DemoLanding\css\6xKydSBYKcSV-LCoeQqfX1RYOo3ik4zwkxduz8A.woff2" />
+    <None Include="wwwroot\Images\Slider\p1.jpg" />
+    <None Include="wwwroot\Images\Slider\p2.jpg" />
+    <None Include="wwwroot\Images\Slider\p3.jpg" />
+    <None Include="wwwroot\Public\js\canvasjs.min.js" />
+    <None Include="wwwroot\Public\js\contact.js" />
+    <None Include="wwwroot\Public\js\countdown.js" />
+    <None Include="wwwroot\Public\js\main.js" />
+    <None Include="wwwroot\Public\js\map.js" />
+    <None Include="wwwroot\Public\js\minified.js" />
+    <None Include="wwwroot\Public\webfonts\fa-brands-400.svg" />
+    <None Include="wwwroot\Public\webfonts\fa-brands-400.woff2" />
+    <None Include="wwwroot\Public\webfonts\fa-regular-400.svg" />
+    <None Include="wwwroot\Public\webfonts\fa-regular-400.woff2" />
+    <None Include="wwwroot\Public\webfonts\fa-solid-900.svg" />
+    <None Include="wwwroot\Public\webfonts\fa-solid-900.woff2" />
+  </ItemGroup>
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Pages\Terms.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Pages\Terms.cshtml" />
+  </ItemGroup>
+</Project>

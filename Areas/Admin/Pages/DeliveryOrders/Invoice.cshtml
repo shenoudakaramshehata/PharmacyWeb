@@ -1,0 +1,48 @@
+﻿@page
+@model Pharmacy.Areas.Admin.Pages.DeliveryOrders.InvoiceModel
+@{
+}
+!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="~/Admin/assets/css/slim.css">
+    <title></title>
+</head>
+<body>
+
+</body>
+</html>
+<div class="slim-mainpanel p-4">
+    <div class="container">
+        <div class="slim-pageheader">
+            <ol class="breadcrumb slim-breadcrumb">
+                @*<li class="breadcrumb-item"><a href="#">@sharedResource["Home"]</a></li>
+                    <li class="breadcrumb-item"><a href="#">@sharedResource["Reports"]</a></li>*@
+                @*<li class="breadcrumb-item active" aria-current="page">Department Asset Report</li>*@
+            </ol>
+            @*<h6 class="slim-pagetitle">Department Asset Report</h6>*@
+        </div><!-- slim-pageheader -->
+        <div class="row row-sm row-timeline">
+
+            <div class="col-lg-9">
+
+                <div class="card pd-30">
+                    <div class="timeline-group">
+                        @using Pharmacy.Reports
+
+                        <link rel="stylesheet" href="~/css/viewer.part.bundle.css" />
+
+                        <script src="~/js/viewer.part.bundle.js"></script>
+
+                        @Html.DevExpress().WebDocumentViewer("DocumentViewer").Height("1000px").Bind(Model.Report)
+                    </div><!-- timeline-group -->
+                </div><!-- card -->
+
+            </div><!-- col-9 -->
+            <!-- col-3 -->
+        </div><!-- row -->
+
+
+
+    </div><!-- container -->
+</div>

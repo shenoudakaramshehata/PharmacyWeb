@@ -1,0 +1,218 @@
+﻿@page
+@model Pharmacy.Areas.Admin.Pages.DeliveryOrders.orderdetailsModel
+@{
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title"> @sharedResource["OrderDetails"]  </h2>
+                        <div class="col-md-12 invers">
+                            <a asp-page="DeliveryList" class="btn btn-primary"> @sharedResource["Back"]</a>
+                            <br />
+                        </div>
+                        <div style="padding-top:20px;padding-left:20px;padding-right:20px">
+                            <div class="row">
+                                <div class="col-md-12 col-lg-6 mt-4">
+                                    <h4> @sharedResource["Customer_Information"] </h4>
+                                    <hr />
+
+                                    <div class="customer_info_container d-flex justify-content-between">
+                                        <div> @sharedResource["NameEn"] </div>
+                                        <div> @Model.order.Customer.CustomerNameEn </div>
+                                    </div>
+                                    <div class="customer_info_container d-flex justify-content-between">
+                                        <div>@sharedResource["NameAr"]  </div>
+                                        <div> @Model.order.Customer.CustomerNameAr </div>
+                                    </div>
+                                    <div class="customer_info_container d-flex justify-content-between">
+                                        <div>@sharedResource["Phone"]  </div>
+                                        <div> @Model.order.Customer.CustomerPhone </div>
+                                    </div>
+                                    <div class="customer_info_container d-flex justify-content-between">
+                                        <div>@sharedResource["Email"]  </div>
+                                        <div> @Model.order.Customer.CustomerEmail </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-12 col-lg-6 mt-4">
+                                    <h4> @sharedResource["Order_Information"] </h4>
+                                    <hr />
+                                    <div class="customer_info_container d-flex justify-content-between">
+                                        <div> @sharedResource["Date"]  </div>
+                                        <div> @Model.order.OrderDate </div>
+                                    </div>
+                                    <div class="customer_info_container d-flex justify-content-between">
+                                        <div> @sharedResource["Serial"]</div>
+                                        <div> @Model.order.OrderSerial </div>
+                                    </div>
+                                    <div class="customer_info_container d-flex justify-content-between">
+                                        <div> @sharedResource["Total"]  </div>
+                                        <div> @Model.order.Total </div>
+                                    </div>
+                                    <div class="customer_info_container d-flex justify-content-between">
+                                        <div>@sharedResource["Address"]  </div>
+                                        <div> @Model.order.Addrerss </div>
+                                    </div>
+
+                                    <div class="customer_info_container d-flex justify-content-between">
+                                        <div> @sharedResource["Payment"]  </div>
+                                        @{
+                                            if (Model.order.ispaid)
+                                            {
+                                                <div> @sharedResource["Paid"]  </div>
+                                            }
+                                            else
+                                            {
+                                                <div> @sharedResource["Not Paid Yet"]  </div>
+                                            }
+                                        }
+
+                                    </div>
+
+                                </div>
+
+
+                                @{
+                                    if (Model.order.PaymentMethodId != 0)
+                                    {
+                                        <div class="col-md-12 col-lg-6 mt-4">
+                                            <h4> @sharedResource["Payment_Information"]  </h4>
+                                            <hr />
+                                            <div class="customer_info_container d-flex justify-content-between">
+                                                <div>@sharedResource["NameAr"]  </div>
+                                                <div> @Model.paymentMethod.PaymentMethodTlAr</div>
+                                            </div>
+                                            <div class="customer_info_container d-flex justify-content-between">
+                                                <div>@sharedResource["NameEn"]  </div>
+                                                <div> @Model.paymentMethod.PaymentMethodTlEn</div>
+                                            </div>
+
+                                        </div>
+                                    }
+                                }
+               
+                                @{
+                                    if (Model.order.ispaid == false&&Model.order.PaymentMethodId==1)
+                                    {
+                                        <div class="col-md-12 col-lg-6 mt-4">
+                                            <h4> @sharedResource["Pay Order"] </h4>
+                                            <hr />
+                                            <form id="form" method="post">
+                                                @(Html.DevExtreme().Form<Pharmacy.Models.Delivery>
+                                            ()
+                                            .Items(items =>
+                                            {
+                                            items.AddButton()
+                                            .HorizontalAlignment(HorizontalAlignment.Center)
+                                            .ButtonOptions(b => b.Text(sharedResource["Order is Paid"])
+                                            .Type(ButtonType.Success)
+                                            .UseSubmitBehavior(true));
+                                                })
+)
+                                            </form>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        if (Model.order.DeliveryId != null)
+                                        {
+                                            <div class="col-md-12 col-lg-6 mt-4">
+                                                <h4> @sharedResource["Delivery Information"] </h4>
+                                                <hr />
+
+                                                <div class="customer_info_container d-flex justify-content-between">
+                                                    <div>@sharedResource["Agent Title"] </div>
+                                                    <div> @Model.order.Delivery.Title </div>
+                                                </div>
+
+                                                <div class="customer_info_container d-flex justify-content-between">
+                                                    <div>@sharedResource["Agent First Phone"]</div>
+                                                    <div> @Model.order.Delivery.Phone1 </div>
+                                                </div>
+                                                <div class="customer_info_container d-flex justify-content-between">
+                                                    <div>@sharedResource["Agent Second Phone"]</div>
+                                                    <div> @Model.order.Delivery.Phone2 </div>
+                                                </div>
+                                                <div class="customer_info_container d-flex justify-content-between">
+                                                    <div>@sharedResource["Agent Email"]</div>
+                                                    <div> @Model.order.Delivery.Email </div>
+                                                </div>
+                                                <div class="customer_info_container d-flex justify-content-between">
+                                                    <div>@sharedResource["Agent Address"]</div>
+                                                    <div> @Model.order.Delivery.Address </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                }
+
+                                <div class="col-md-12 col-lg-12 mt-4">
+                                    <h4>  @sharedResource["Items"] </h4>
+                                    <hr />
+                                    <div class="row justify-content-center">
+                                        @foreach (var item in Model.orderItem)
+                                        {
+                                            <div class="col-md-12 col-lg-2 shadow-sm m-2 rounded product_container ">
+
+                                                <div class="product_img_container">
+                                                    <img style="border-radius: 13%; width:70px; height:70px" class="img-fluid" src="~/Images/Item/@item.Item.ItemPic" />
+                                                </div>
+                                                <div class="product_order_details d-flex justify-content-between">
+                                                    <div> @sharedResource["NameAr"] </div>
+                                                    <div> @item.Item.ItemTlAr </div>
+                                                </div>
+                                                <div class="product_order_details d-flex justify-content-between">
+                                                    <div> @sharedResource["NameEn"] </div>
+                                                    <div> @item.Item.ItemTlEn </div>
+                                                </div>
+                                                <div class="product_order_details d-flex justify-content-between">
+                                                    <div> @sharedResource["Price"] </div>
+                                                    <div> @item.ItemPrice </div>
+                                                </div>
+                                                <div class="product_order_details d-flex justify-content-between">
+                                                    <div> @sharedResource["Quantity"] </div>
+                                                    <div> @item.Qty </div>
+                                                </div>
+                                                <div class="product_order_details d-flex justify-content-between">
+                                                    <div> @sharedResource["Total"] </div>
+                                                    <div> @item.Total </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+
+                            </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .product_container {
+        background-color: #4b49ac;
+        padding: 14px;
+        height: 300px;
+    }
+
+    .product_img_container {
+        width: 151px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: auto;
+        padding: 9px;
+    }
+
+    .product_order_details {
+        color: white
+    }
+</style>

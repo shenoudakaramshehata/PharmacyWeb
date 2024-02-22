@@ -1,0 +1,40 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<footer id="footer" class="bg-white border-0">
+
+    <div id="copyrights" class="bg-color dark py-5">
+        <div class="container">
+
+            <div class="row col-mb-30">
+                <div class="col-md-6 text-center text-md-start">
+                    @sharedResource["Copyrights © 2023 All Rights Reserved by Code Ware."]<br>
+                    <div class="copyright-links"><a asp-page="privacy" class="text-white-50"> @sharedResource["Privacy Policy"]</a></div>
+                </div>
+
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#" class="btn color bg-white rounded px-3 py-2 nott ls0 shadow-sm"><i class="fa-brands fa-app-store"></i> @sharedResource["App Store"]</a>
+                    <a href="#" class="btn color bg-white rounded px-3 py-2 nott ls0 shadow-sm ms-2"><i class="icon-google-play me-2"></i> @sharedResource["Play Store"]</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</footer><!-- #footer end -->
+<script src="js/jquery.js"></script>
+<script src="js/plugins.min.js"></script>
+
+<!-- Footer Scripts
+============================================= -->
+<script src="js/functions.js"></script>
+
+<script>
+    jQuery(window).on('pluginCarouselReady', function () {
+        setTimeout(function () {
+            $('.owl-stage').after('<div class="owl-stage-outer-bg"></div>');
+        }, 1000);
+    });
+</script>

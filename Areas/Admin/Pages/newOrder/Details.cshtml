@@ -1,0 +1,133 @@
+﻿@page
+@model Pharmacy.Areas.Admin.Pages.newOrder.DetailsModel
+@{
+}
+<div class="container">
+    <br />
+    <br />
+    <br />
+    <br />
+    @*<table class="table table-primary">
+        <thead>
+            <tr>
+                <td>
+                    OrderId
+                </td>
+
+                <td>
+                    OrderDate
+                </td>
+                <td>
+                    OrderSerial
+                </td>
+                <td>
+                    Total
+                </td>
+                <td>
+                    CustomerId
+                </td>
+                <td>
+                    Addrerss
+                </td>
+                <td>
+                    Closed
+                </td>
+                <td>
+                    PaymentMethodId
+                </td>
+                <td>
+                    Remarks
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    @Model.order.OrderId
+                </td>
+
+                <td>
+                    @Model.order.OrderDate
+                </td>
+                <td>
+                    @Model.order.OrderSerial
+                </td>
+                <td>
+                    @Model.order.Total
+                </td>
+                <td>
+                    @Model.order.CustomerId
+                </td>
+                <td>
+                    @Model.order.Addrerss
+                </td>
+                <td>
+                    @Model.order.Closed
+                </td>
+                <td>
+                    @Model.order.PaymentMethodId
+                </td>
+                <td>
+                    @Model.order.Remarks
+                </td>
+            </tr>
+        </tbody>
+    </table>*@
+    <div class="row">
+        <label class="col-4">
+            @Html.DisplayNameFor(x => x.order.OrderId)
+        </label>
+        <label class="col-8">
+            @Html.DisplayFor(x => x.order.OrderId)
+        </label>
+        <label class="col-4">
+            @Html.DisplayNameFor(x => x.order.OrderDate)
+        </label>
+        <label class="col-8">
+            @Html.DisplayFor(x => x.order.OrderDate)
+        </label>
+        <label class="col-4">
+            @Html.DisplayNameFor(x => x.order.OrderSerial)
+        </label>
+        <label class="col-8">
+            @Html.DisplayFor(x => x.order.OrderSerial)
+        </label>
+        <label class="col-4">
+            @Html.DisplayNameFor(x => x.order.Total)
+        </label>
+        <label class="col-8">
+            @Html.DisplayFor(x => x.order.Total)
+        </label>
+        <label class="col-4">
+            @Html.DisplayNameFor(x => x.order.CustomerId)
+        </label>
+        <label class="col-8">
+            @Html.DisplayFor(x => x.order.CustomerId)
+        </label>
+        <label class="col-4">
+            @Html.DisplayNameFor(x => x.order.Addrerss)
+        </label>
+        <label class="col-8">
+            @Html.DisplayFor(x => x.order.Addrerss)
+        </label>
+        <label class="col-4">
+            @Html.DisplayNameFor(x => x.order.Closed)
+        </label>
+        <label class="col-8">
+            @Html.DisplayFor(x => x.order.Closed)
+        </label>
+        <label class="col-4">
+            @Html.DisplayNameFor(x => x.order.PaymentMethodId)
+        </label>
+        <label class="col-8">
+            @Html.DisplayFor(x => x.order.PaymentMethodId)
+        </label>
+        <label class="col-4">
+            @Html.DisplayNameFor(x => x.order.Remarks)
+        </label>
+        <label class="col-8">
+            @Html.DisplayFor(x => x.order.Remarks)
+        </label>
+    </div>
+    <a asp-page="Index" class="btn btn-primary">@sharedResource["Back to List"]</a>
+</div>

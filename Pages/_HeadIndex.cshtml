@@ -1,0 +1,82 @@
+﻿@using Microsoft.AspNetCore.Localization;
+
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+<head>
+    <title>International Horse Care Center</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    @*<link href="~/Admin/assets/css/bootstrap-rtl.min.css" rel="stylesheet" type="text/css" />*@
+    @*<link href="~/Admin/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />*@
+    @*<link rel="stylesheet" href="Public/css/minified.css">*@
+    <link href="~/Public/css/minified.css" rel="stylesheet" type="text/css" />
+
+
+
+
+
+    @{
+        var locale = Context.Request.HttpContext.Features.Get<IRequestCultureFeature>();
+        var BrowserCulture = locale.RequestCulture.UICulture.ToString();
+        //English
+        if (BrowserCulture == "en-US")
+        {
+            <style>
+                html {
+                    direction: ltr !important;
+                }
+
+                .reverse-gear {
+                    direction: ltr !important;
+                    text-align: left !important;
+                }
+
+               
+                .rtl {
+                    direction: rtl !important;
+                }
+            </style>
+
+            <link href="~/Public/css/minified.css" rel="stylesheet" />
+            <link href="@Url.Content("~/Admin/assets/css/bootstrap.min.css")" rel="stylesheet" type="text/css" />
+            <link href="@Url.Content("~/Admin/assets/css/icons.min.css")" rel="stylesheet" type="text/css" />
+            <link href="@Url.Content("~/Admin/assets/css/app.min.css")" rel="stylesheet" type="text/css" />
+
+
+        }
+        //Arabic
+        else
+        {
+
+            <style>
+                html {
+                    direction: rtl !important;
+                }
+
+                .reverse-gear {
+                    direction: rtl !important;
+                    text-align: right !important;
+                }
+               
+                .rtl {
+                    direction: ltr !important;
+                }
+                #image34 {
+                    direction: rtl !important;
+                }
+            </style>
+            <link href="~/Admin/assets/css/bootstrap-rtl.min.css" rel="stylesheet" type="text/css" />
+            <link href="~/Admin/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+            <link href="~/Admin/assets/css/app-rtl.min.css" rel="stylesheet" type="text/css" />
+
+        }
+
+    }
+</head>

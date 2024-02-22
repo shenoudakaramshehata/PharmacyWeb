@@ -1,0 +1,208 @@
+﻿@page
+@model Pharmacy.Areas.Admin.Pages.DeliveryAgent.orderdetailModel
+@{
+}
+<div class="page-content">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title"> @sharedResource["OrderDetails"]  </h2>
+                        <div class="col-md-12 invers">
+                            <a asp-page="DetailsDeliveryAgent" asp-route-id="@Model.order.DeliveryId" class="btn btn-primary"> @sharedResource["Back"]</a>
+                            <br />
+                        </div>
+                        <div style="padding-top:20px;padding-left:20px;padding-right:20px">
+                            <div class="row">
+                                <div class="col-md-12 col-lg-6 mt-4">
+                                    <h4> @sharedResource["Customer_Information"] </h4>
+                                    <hr />
+
+                                    <div class="customer_info_container d-flex justify-content-between">
+                                        <div> @sharedResource["NameEn"] </div>
+                                        <div> @Model.order.Customer.CustomerNameEn </div>
+                                    </div>
+                                    <div class="customer_info_container d-flex justify-content-between">
+                                        <div>@sharedResource["NameAr"]  </div>
+                                        <div> @Model.order.Customer.CustomerNameAr </div>
+                                    </div>
+                                    <div class="customer_info_container d-flex justify-content-between">
+                                        <div>@sharedResource["Phone"]  </div>
+                                        <div> @Model.order.Customer.CustomerPhone </div>
+                                    </div>
+                                    <div class="customer_info_container d-flex justify-content-between">
+                                        <div>@sharedResource["Email"]  </div>
+                                        <div> @Model.order.Customer.CustomerEmail </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-12 col-lg-6 mt-4">
+                                    <h4> @sharedResource["Order_Information"] </h4>
+                                    <hr />
+                                    <div class="customer_info_container d-flex justify-content-between">
+                                        <div> @sharedResource["Date"]  </div>
+                                        <div> @Model.order.OrderDate </div>
+                                    </div>
+                                    <div class="customer_info_container d-flex justify-content-between">
+                                        <div> @sharedResource["Serial"]</div>
+                                        <div> @Model.order.OrderSerial </div>
+                                    </div>
+                                    <div class="customer_info_container d-flex justify-content-between">
+                                        <div> @sharedResource["Total"]  </div>
+                                        <div> @Model.order.Total </div>
+                                    </div>
+                                    <div class="customer_info_container d-flex justify-content-between">
+                                        <div>@sharedResource["Address"]  </div>
+                                        <div> @Model.order.Addrerss </div>
+                                    </div>
+                                    <div class="customer_info_container d-flex justify-content-between">
+                                        <div> @sharedResource["Payment"]  </div>
+                                        @{
+                                            if (Model.order.ispaid)
+                                            {
+                                                <div> @sharedResource["Paid"]  </div>
+                                            }
+                                            else
+                                            {
+                                                <div> @sharedResource["Not Paid Yet"]  </div>
+                                            }
+                                        }
+
+                                    </div>
+                                   
+                                </div>
+
+
+                                @{
+                                    if (Model.order.PaymentMethodId != 0)
+                                    {
+                                        <div class="col-md-12 col-lg-6 mt-4">
+                                            <h4> @sharedResource["Payment_Information"]  </h4>
+                                            <hr />
+                                            <div class="customer_info_container d-flex justify-content-between">
+                                                <div>@sharedResource["NameAr"]  </div>
+                                                <div> @Model.paymentMethod.PaymentMethodTlAr</div>
+                                            </div>
+                                            <div class="customer_info_container d-flex justify-content-between">
+                                                <div>@sharedResource["NameEn"]  </div>
+                                                <div> @Model.paymentMethod.PaymentMethodTlEn</div>
+                                            </div>
+
+                                        </div>
+                                    }
+                                }
+                                <div class="col-md-12 col-lg-6 mt-4">
+                                    <h4> @sharedResource["Delivery Information"] </h4>
+                                    <hr />
+
+                                    <div class="customer_info_container d-flex justify-content-between">
+                                        <div>@sharedResource["Agent Title"] </div>
+                                        <div> @Model.order.Delivery.Title </div>
+                                    </div>
+
+                                    <div class="customer_info_container d-flex justify-content-between">
+                                        <div>@sharedResource["Agent First Phone"]</div>
+                                        <div> @Model.order.Delivery.Phone1 </div>
+                                    </div>
+                                    <div class="customer_info_container d-flex justify-content-between">
+                                        <div>@sharedResource["Agent Second Phone"]</div>
+                                        <div> @Model.order.Delivery.Phone2 </div>
+                                    </div>
+                                    <div class="customer_info_container d-flex justify-content-between">
+                                        <div>@sharedResource["Agent Email"]</div>
+                                        <div> @Model.order.Delivery.Email </div>
+                                    </div>
+                                    <div class="customer_info_container d-flex justify-content-between">
+                                        <div>@sharedResource["Agent Address"]</div>
+                                        <div> @Model.order.Delivery.Address </div>
+                                    </div>
+                                </div>
+                                <div class="container-fluid">
+                                <div class="col-md-12 col-lg-12 mt-4">
+                                    <h4>  @sharedResource["Items"] </h4>
+                                    <hr />
+                                   
+                                    <div class="row justify-content-center">
+                                    <div class="card-body p-4">
+                                        <div class="table-responsive">
+                                            <table class="table table-border text-center table-nowrap align-middle mb-0">
+                                                <thead>
+                                                    <tr class="table-active">
+                                                        <th scope="col" style="width: 50px;">#</th>
+                                                        <th scope="col">@sharedResource["Image"]</th>
+                                                        <th scope="col">@sharedResource["NameAr"]</th>
+                                                        <th scope="col">@sharedResource["NameEn"]</th>
+
+                                                      
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="products-list">
+                                                    @{
+                                                        if (@Model.order != null)
+                                                        {
+                                                            if (@Model.orderItem != null)
+                                                            {
+                                                                int count = 0;
+                                                                foreach (var item in @Model.orderItem)
+                                                                {
+                                                                    count = count + 1;
+                                                                    <tr>
+                                                                        <th scope="row">@count</th>
+                                                                        <td class="text-center">
+                                                                            <img style="border-radius: 13%; width:70px; height:70px" src="~/Images/Item/@item.Item.ItemPic">
+                                                                        </td>
+                                                                        <td class="text-center">
+                                                                            @item.Item.ItemTlAr
+                                                                        </td>
+                                                                        <td class="text-center">@item.Item.ItemTlEn</td>
+                                                                       
+                                                                    </tr>
+
+                                                                }
+
+                                                            }
+                                                        }
+                                                    }
+
+                                                </tbody>
+                                            </table><!--end table-->
+                                        </div>
+                                    
+                                    </div>
+                                    <!--end card-body-->
+                                    
+                                </div><!--end col-->
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .product_container {
+        background-color: #4b49ac;
+        padding: 14px;
+        height: 100%;
+        width: 66%;
+    }
+
+    .product_img_container {
+        width: 151px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: auto;
+        padding: 9px;
+    }
+
+    .product_order_details {
+        color: white
+    }
+</style>

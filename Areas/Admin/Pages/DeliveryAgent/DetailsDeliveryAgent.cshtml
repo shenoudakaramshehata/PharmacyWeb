@@ -1,0 +1,135 @@
+﻿@page
+@model Pharmacy.Areas.Admin.Pages.DeliveryAgent.DetailsDeliveryAgentModel
+@{
+}
+<div class="page-content">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-header d-flex justify-content-between align-items-center">
+                            @sharedResource["Details"]
+                            <a asp-page="DeliveryAgentIndex" class="btn btn-primary"> @sharedResource["Back"]</a>
+                        </h2>
+                    </div>
+                    <div class="card-body">
+
+                        <div style="padding-top:20px;padding-left:20px;padding-right:20px">
+                            <div class="row">
+                                <h4> @sharedResource["Informations"] </h4>
+                                <hr />
+                                <div class="col-md-12 col-lg-12 mt-4">
+                                    <dl class="row">
+                                        <dt class="col-sm-2">@sharedResource["Agent Title"]  </dt>
+                                        <dd class="col-sm-10"> @Model.delivery.Title </dd>
+                                    </dl>
+                                </div>
+                                <div class="col-md-12 col-lg-12 mt-4">
+                                    <dl class="row">
+                                        <dt class="col-sm-2">@sharedResource["Agent Address"]  </dt>
+                                        <dd class="col-sm-10"> @Model.delivery.Address </dd>
+                                    </dl>
+                                </div>
+                                <div class="col-md-12 col-lg-12 mt-4">
+
+                                    <dl class="row">
+                                        <dt class="col-sm-2">@sharedResource["Agent First Phone"]  </dt>
+                                        <dd class="col-sm-10"> @Model.delivery.Phone1 </dd>
+                                    </dl>
+                                </div>
+                                <div class="col-md-12 col-lg-12 mt-4">
+
+                                    <dl class="row">
+                                        <dt class="col-sm-2">@sharedResource["Agent Second Phone"]  </dt>
+                                        <dd class="col-sm-10"> @Model.delivery.Phone2 </dd>
+                                    </dl>
+                                </div>
+                                <div class="col-md-12 col-lg-12 mt-4">
+                                    <dl class="row">
+                                        <dt class="col-sm-2">@sharedResource["Agent Email"]  </dt>
+                                        <dd class="col-sm-10"> @Model.delivery.Email </dd>
+                                    </dl>    
+                                </div>
+                                <div class="col-md-12 col-lg-12 mt-4">
+                                    <dl class="row">
+                                        <dt class="col-sm-2">@sharedResource["Agent Description"]  </dt>
+                                        <dd class="col-sm-10"> @Model.delivery.Description </dd>
+                                    </dl>
+                                  
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h2 class="card-header d-flex justify-content-between align-items-center">
+                            @sharedResource["Orders"]
+                        </h2>
+                        <br />
+                        <br />
+                        @(Html.DevExtreme().DataGrid<Pharmacy.Models.Order>()
+                    .ID("gridContainer")
+                   .DataSource(Model.orders)
+                         .Columns(columns => {
+
+    columns.AddFor(m => m.OrderSerial).Caption(sharedResource["Serial"]);
+    columns.AddFor(m => m.OrderDate).Caption(sharedResource["Date"]);
+
+
+
+    columns.AddFor(m => m.CustomerId).Lookup(lookup => lookup
+        .DataSource(ds => ds.WebApi().Controller("Orders").LoadAction("CustomersLookup").Key("Value"))
+        .ValueExpr("Value")
+        .DisplayExpr("Text")
+    ).Caption(sharedResource["Customer"]);
+
+    columns.AddFor(m => m.Addrerss).Caption(sharedResource["Address"]);
+    //columns.AddFor(m => m.Closed).Caption(sharedResource["Closed"]);
+    columns.AddFor(m => m.PaymentMethodId).Lookup(lookup => lookup
+        .DataSource(ds => ds.WebApi().Controller("Orders").LoadAction("PaymentMethodLookup").Key("Value"))
+        .ValueExpr("Value")
+        .DisplayExpr("Text")
+    ).Caption(sharedResource["PaymentMethod"]);
+    columns.AddFor(m => m.Total).Caption(sharedResource["Total"]);
+
+    columns.Add().Caption(sharedResource["Actions"]).Width(200).Alignment(HorizontalAlignment.Center).CellTemplate(@<text>
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                        <a class="btn btn-primary btn-sm"  href="/Admin/DeliveryAgent/orderdetail?id=<%- data.OrderId %>"> <i class="fas fa-eye"></i> </a>
+                            </div>
+                            </text>);
+
+
+    })
+                         .Paging(paging => paging.PageSize(10))
+                        .Pager(pager =>
+                        {
+                            pager.Visible(true);
+                            pager.DisplayMode(GridPagerDisplayMode.Full);
+                            pager.ShowPageSizeSelector(true);
+                            pager.AllowedPageSizes(new JS("[5, 10, 'all']"));
+                            pager.ShowInfo(true);
+                            pager.ShowNavigationButtons(true);
+
+                        })
+                        .HeaderFilter(headerFilter => headerFilter.Visible(true)).ShowColumnLines(true)
+                        .ShowRowLines(true)
+                        .RowAlternationEnabled(true)
+                        .AllowColumnReordering(true)
+                        .ShowRowLines(true)
+                        .ShowBorders(true)
+                        .SearchPanel(searchPanel => searchPanel
+                        .Visible(true)
+                        .Width(240)
+                        .Placeholder(sharedResource["SearchTxt"]))
+                        .RemoteOperations(true)
+                        .RtlEnabled(bool.Parse(sharedResource["ArLang"]))
+                                        )
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

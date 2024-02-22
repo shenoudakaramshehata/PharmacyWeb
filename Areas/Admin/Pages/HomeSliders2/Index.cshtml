@@ -1,0 +1,88 @@
+﻿@page
+@model Pharmacy.Areas.Admin.Pages.HomeSliders2.IndexModel
+@{
+}
+
+
+<div class="page-content">
+	<div class="container-fluid">
+
+		<div class="row">
+			<div class="col-12">
+				<div class="card">
+					<div class="card-header">
+						<h2 class="card-header d-flex justify-content-between align-items-center">
+							@sharedResource["HomeSlider"]
+							<a asp-page="Create" class="btn btn-primary">@sharedResource["Create"]  @sharedResource["HomeSlider"]  </a>
+						</h2>
+					</div>
+					<div class="card-body">
+
+
+
+
+						@(Html.DevExtreme().DataGrid<Pharmacy.Models.HomeSlider>()
+						.ID("gridContainer")
+
+						.DataSource(Model.SliderLst)
+
+						.Columns(columns => {
+						columns.AddFor(m => m.HomeSliderPic)
+						.Width(100)
+						.AllowFiltering(false)
+						.AllowSorting(false)
+						.CellTemplate(@<text>
+								<div>
+									<img width="50" height="50" src="/Images/Slider/<%- value %>" alt="image" />
+								</div>
+							</text>).Caption(sharedResource["Picture"]);
+						columns.AddFor(m => m.HomeSliderTypeId).Lookup(lookup => lookup
+						.DataSource(ds => ds.WebApi().Controller("HomeSliders").LoadAction("HomeSliderTypesLookup").Key("Value"))
+						.ValueExpr("Value")
+						.DisplayExpr("Text")
+						).Caption(sharedResource["SliderType"]);
+
+
+						columns.AddFor(m => m.HomeSliderEntityId).Caption(sharedResource["Name"]);
+
+						columns.Add().Caption(sharedResource["Actions"]).Width(200).Alignment(HorizontalAlignment.Center).CellTemplate(@<text>
+
+								<div class="btn-group" role="group" aria-label="Basic example">
+									<a class="btn btn-success btn-sm" href="/Admin/HomeSliders2/Edit?id=<%- data.HomeSliderId %>">  <i class="fas fa-edit"></i> </a>
+
+									<a class="btn btn-danger btn-sm" href="/Admin/HomeSliders2/Delete?id=<%- data.HomeSliderId %>">  <i class="fas fa-trash"></i> </a>
+								</div>
+							</text>);
+						})
+						.Paging(paging => paging.PageSize(10))
+						.Pager(pager =>
+						{
+						pager.Visible(true);
+						pager.DisplayMode(GridPagerDisplayMode.Full);
+						pager.ShowPageSizeSelector(true);
+						pager.AllowedPageSizes(new JS("[5, 10, 'all']"));
+						pager.ShowInfo(true);
+						pager.ShowNavigationButtons(true);
+
+						})
+						.HeaderFilter(headerFilter => headerFilter.Visible(true)).ShowColumnLines(true)
+						.ShowRowLines(true)
+						.RowAlternationEnabled(true)
+						.AllowColumnReordering(true)
+						.ShowRowLines(true)
+						.ShowBorders(true)
+						.SearchPanel(searchPanel => searchPanel
+						.Visible(true)
+						.Width(240)
+						.Placeholder(sharedResource["SearchTxt"]))
+						.RemoteOperations(true)
+						.RtlEnabled(bool.Parse(sharedResource["ArLang"]))
+						)
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

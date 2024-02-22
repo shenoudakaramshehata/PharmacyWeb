@@ -1,0 +1,125 @@
+﻿@page
+@model Pharmacy.Areas.Admin.Pages.Customers.DetailsModel
+@{
+}
+
+
+<div class="page-content">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-header d-flex justify-content-between align-items-center">
+                            @sharedResource["CustomerDetails"]
+                            <a asp-page="Index" class="btn btn-primary invers"> @sharedResource["Back"]</a>
+
+                        </h2>
+
+                    </div>
+
+                    <div class="card-body">
+                        <div style="padding-top:20px;padding-left:20px;padding-right:20px">
+                            <div class="row">
+                                <h4> @sharedResource["Customer_Information"] </h4>
+                                <hr />
+
+                                <div class="col-md-12 col-lg-12 mt-4">
+
+                                    <dl class="row">
+                                        <dt class="col-sm-2">@sharedResource["NameEn"]  </dt>
+                                        <dd class="col-sm-10"> @Model.customer.CustomerNameEn </dd>
+                                    </dl>
+                                </div>
+
+                                <div class="col-md-12 col-lg-12 mt-4">
+
+                                    <dl class="row">
+                                        <dt class="col-sm-2">@sharedResource["NameAr"]  </dt>
+                                        <dd class="col-sm-10"> @Model.customer.CustomerNameAr </dd>
+                                    </dl>
+                                </div>
+
+                                <div class="col-md-12 col-lg-12 mt-4">
+
+                                    <dl class="row">
+                                        <dt class="col-sm-2">@sharedResource["Phone"]  </dt>
+                                        <dd class="col-sm-10"> @Model.customer.CustomerPhone </dd>
+                                    </dl>
+                                </div>
+
+                                <div class="col-md-12 col-lg-12 mt-4">
+
+                                    <dl class="row">
+                                        <dt class="col-sm-2">@sharedResource["Email"]  </dt>
+                                        <dd class="col-sm-10"> @Model.customer.CustomerEmail </dd>
+                                    </dl>
+                                </div>
+
+                                <div class="col-md-12 col-lg-12 mt-4">
+
+                                    <dl class="row">
+                                        <dt class="col-sm-2">@sharedResource["Address"]  </dt>
+                                        <dd class="col-sm-10"> @Model.customer.CustomerAddress </dd>
+                                    </dl>
+                                </div>
+
+                                <div class="col-md-12 col-lg-12 mt-4">
+
+                                    <dl class="row">
+                                        <dt class="col-sm-2">@sharedResource["Remarks"]  </dt>
+                                        <dd class="col-sm-10"> @Model.customer.CustomerRemarks </dd>
+                                    </dl>
+                                </div>
+
+                                <div class="col-md-12 col-lg-12 mt-4">
+
+                                    <dl class="row">
+                                        <dt class="col-sm-2">@sharedResource["Picture"]  </dt>
+                                        <dd class="col-sm-10">
+                                            <img style="border-radius: 13%;" width="250" height="250" class="img-fluid" src="~/Images/Customer/@Model.customer.CustomerImage" />
+                                        </dd>
+                                    </dl>
+                                </div>
+
+                                @*<div class="col-md-12 col-lg-12 mt-4">
+                                    <div class="customer_info_container d-flex justify-content-between">
+                                        <div>@sharedResource["Picture"]  </div>
+                                        <div class="product_img_container">
+                                            <img style="border-radius: 13%;" width="250" height="250" class="img-fluid" src="~/Images/Customer/@Model.customer.CustomerImage" />
+                                        </div>
+                                    </div>
+                                </div>*@
+
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .product_container {
+        background-color: #4b49ac;
+        padding: 14px;
+        height: 300px;
+    }
+
+    .product_img_container {
+        width: 151px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: auto;
+        padding: 9px;
+    }
+
+    .product_order_details {
+        color: white
+    }
+</style>

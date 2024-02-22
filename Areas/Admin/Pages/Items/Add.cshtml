@@ -1,0 +1,116 @@
+﻿@page
+@model Pharmacy.Areas.Admin.Pages.Items.AddModel
+@{
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-header d-flex justify-content-between align-items-center">
+                            @sharedResource["Add"]  @sharedResource["Item"]
+                            <a asp-page="Index" class="btn btn-primary"> @sharedResource["Back"]</a>
+                        </h2>
+                    </div>
+                    <div class="card-body">
+                        <br />
+                        <form id="form" method="post" enctype="multipart/form-data">
+                            @(Html.DevExtreme().Form<Pharmacy.Models.Item>
+    ()
+    .Items(items =>
+    {
+    items.AddSimpleFor(m => m.BrandId).IsRequired(true)
+    .Editor(e => e
+    .Lookup()
+    .DataSource(ds => ds.WebApi().Controller("Items").LoadAction("BrandsLookup").Key("Value"))
+    .ValueExpr("Value")
+    .DisplayExpr("Text")
+                                    .RtlEnabled(bool.Parse(sharedResource["ArLang"]))
+    .Placeholder(sharedResource["Select Brand"])
+                                                        .ShowClearButton(true)
+                                                        .ClearButtonText(sharedResource["Clear"])
+                                                        .CancelButtonText(sharedResource["Cancel"])
+                                                        .SearchPlaceholder(sharedResource["searching"])
+    ).Label(k => k.Text(sharedResource["Brand"]));
+
+    items.AddSimpleFor(m => m.CategoryId).IsRequired(true)
+    .Editor(e => e
+    .Lookup()
+    .DataSource(ds => ds.WebApi().Controller("Items").LoadAction("CategoriesLookup").Key("Value"))
+    .ValueExpr("Value")
+     .DisplayExpr("Text")
+   .RtlEnabled(bool.Parse(sharedResource["ArLang"]))
+    .Placeholder(sharedResource["Select Category"])
+                                                        .ShowClearButton(true)
+                                                        .ClearButtonText(sharedResource["Clear"])
+                                                        .CancelButtonText(sharedResource["Cancel"])
+                                                        .SearchPlaceholder(sharedResource["searching"])
+
+    ).Label(k => k.Text(sharedResource["Category"]));
+
+
+
+
+    items.AddSimpleFor(m => m.ItemTlAr).IsRequired(true).Label(k => k.Text(sharedResource["TlAr"]));
+    items.AddSimpleFor(m => m.ItemTlEn).IsRequired(true).Label(k => k.Text(sharedResource["TlEn"]));
+    items.AddSimpleFor(m => m.Price).IsRequired(true).Label(k => k.Text(sharedResource["Price"])).Editor(e => e.NumberBox().Value(null).Min(1));
+                                    items.AddSimpleFor(m => m.Stock).IsRequired(true).Label(k => k.Text(sharedResource["Stock"])).Editor(e => e.NumberBox().Value(null).Min(1));
+
+    items.AddSimpleFor(m => m.Description).Editor(c=>c.TextArea()).IsRequired(true).Label(k => k.Text(sharedResource["Description"]));
+    items.AddSimpleFor(m => m.Remarks).Editor(c => c.TextArea()).IsRequired(true).Label(k => k.Text(sharedResource["Remarks"]));
+    items.AddSimpleFor(m => m.IsActive).Label(k => k.Text(sharedResource["IsActive"]));
+
+    items.AddSimpleFor(m => m.ItemPic).IsRequired(true).Label(k => k.Text(sharedResource["Picture"])).Template(@<text>
+
+
+                            @(Html.DevExtreme().FileUploader()
+                                        .Name("Photo")
+                                        .SelectButtonText(sharedResource["Select_photo"])
+                                        .LabelText("")
+                                        .Accept("image/*")
+                                        .UploadMode(FileUploadMode.UseForm)
+                                         .RtlEnabled(bool.Parse(sharedResource["ArLang"]))
+                                        .Height(70)
+
+                                                        )
+
+                            </text> );
+
+
+
+
+        items.AddSimple().Label(k => k.Text(sharedResource["Item_Images"])).Template(@<text>
+
+
+                            @(Html.DevExtreme().FileUploader()
+                                        .Name("Photo")
+                                        .SelectButtonText(sharedResource["Select_photo"])
+                                        .LabelText("")
+                                        .Accept("image/*")
+                                        .UploadMode(FileUploadMode.UseForm)
+                                         .RtlEnabled(bool.Parse(sharedResource["ArLang"]))
+                                        .Height(70)
+                                        .Multiple(true)
+                                                        )
+
+                            </text> );
+
+
+
+    items.AddButton()
+    .ColSpan(3)
+    .HorizontalAlignment(HorizontalAlignment.Right)
+    .ButtonOptions(b => b.Text(sharedResource["Save"])
+    .Type(ButtonType.Success)
+    .UseSubmitBehavior(true)).CssClass("invers");
+    })
+    )
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,250 @@
+﻿@page
+@model Pharmacy.Pages.OrderBillModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>International Horse Care Center</title>
+
+
+
+    <!--
+    meta tags
+    -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @* add devextreme*@
+    <link href="~/Css/devextreme/bootstrap.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="./Public/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./Public/css/all.min.css">
+    <link rel="stylesheet" href="./Public/css/animate.css">
+    <link rel="stylesheet" href="./Public/css/nice-select.css">
+    <link rel="stylesheet" href="./Public/css/owl.min.css">
+    <link rel="stylesheet" href="./Public/css/jquery-ui.min.css">
+    <link rel="stylesheet" href="./Public/css/magnific-popup.css">
+    <link rel="stylesheet" href="./Public/css/flaticon.css">
+    <link rel="stylesheet" href="./Public/css/main.css">
+    <link rel="stylesheet" href="Public/css/minified.css">
+
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="Public/images/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="Public/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="Public/images/favicon/favicon-16x16.png">
+    <link rel="manifest" href="Public/images/favicon/site.html">
+
+    <!--
+    stylesheets
+    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Spartan:wght@500;600;700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="Public/css/bootstrap.min.css">
+    <link rel="stylesheet" href="Public/css/glightbox.min.css">
+    <link rel="stylesheet" href="Public/css/all.min.css">
+    <link rel="stylesheet" href="Public/css/line-awesome.min.css">
+    <link rel="stylesheet" href="Public/css/overlay-scrollbars.min.css">
+    <link rel="stylesheet" href="Public/css/swiper-bundle.min.css">
+
+    <link rel="stylesheet" href="Public/css/style.css">
+</head>
+<body>
+    <div class="page-content">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="invoice-title">
+                                        @*<h4 class="float-end font-size-16">Order # 12345</h4>*@
+                                        <h3 class="mt-0">
+                                            <img src="Public/images/logo/Pharmacylogo.jpeg" alt="logo" height="26">
+                                        </h3>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-md-12 col-lg-6 mt-4">
+                                            <h4> Customer Information </h4>
+                                            <hr />
+
+                                            <div class="customer_info_container d-flex justify-content-between">
+                                                <div> Name </div>
+                                                <div> @Model.order.Customer.CustomerNameEn </div>
+                                            </div>
+                                           
+                                            <div class="customer_info_container d-flex justify-content-between">
+                                                <div>Phone</div>
+                                                <div> @Model.order.Customer.CustomerPhone </div>
+                                            </div>
+                                            <div class="customer_info_container d-flex justify-content-between">
+                                                <div>Email</div>
+                                                <div> @Model.order.Customer.CustomerEmail </div>
+                                            </div>
+                                           
+                                        </div>
+
+                                        <div class="col-md-12 col-lg-6 mt-4">
+                                            <h4> Order Information</h4>
+                                            <hr />
+                                            <div class="customer_info_container d-flex justify-content-between">
+                                                <div> Order Date</div>
+                                                <div> @Model.order.OrderDate.Value.ToShortDateString() </div>
+                                            </div>
+                                            <div class="customer_info_container d-flex justify-content-between">
+                                                <div>Order-Serial</div>
+                                                <div> @Model.order.OrderSerial </div>
+                                            </div>
+                                            <div class="customer_info_container d-flex justify-content-between">
+                                                <div>Total</div>
+                                                <div> @Model.order.Total </div>
+                                            </div>
+                                            <div class="customer_info_container d-flex justify-content-between">
+                                                <div>Address</div>
+                                                <div> @Model.order.Addrerss </div>
+                                            </div>
+                                            <div class="customer_info_container d-flex justify-content-between">
+                                                <div> @sharedResource["Payment"]  </div>
+                                                @{
+                                                    if (Model.order.ispaid)
+                                                    {
+                                                        <div> @sharedResource["Paid"]  </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div> @sharedResource["Not Paid Yet"]  </div>
+                                                    }
+                                                }
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        @{
+                                            if (Model.order.PaymentMethodId != 0)
+                                            {
+                                                <div class="col-md-12 col-lg-6 mt-4">
+                                                    <h4> @sharedResource["Payment_Information"]  </h4>
+                                                    <hr />
+                                                    <div class="customer_info_container d-flex justify-content-between">
+                                                        <div>@sharedResource["NameAr"]  </div>
+                                                        <div> @Model.paymentMethod.PaymentMethodTlAr</div>
+                                                    </div>
+                                                    <div class="customer_info_container d-flex justify-content-between">
+                                                        <div>@sharedResource["NameEn"]  </div>
+                                                        <div> @Model.paymentMethod.PaymentMethodTlEn</div>
+                                                    </div>
+
+                                                </div>
+                                            }
+                                        }
+                                        @{
+                                            if (Model.order.DeliveryId != null)
+                                            {
+                                                <div class="col-md-12 col-lg-6 mt-4">
+                                                    <h4> Delivery Information </h4>
+                                                    <hr />
+
+                                                    <div class="customer_info_container d-flex justify-content-between">
+                                                        <div> Delivery Agent Title </div>
+                                                        <div> @Model.order.Delivery.Title </div>
+                                                    </div>
+
+                                                    <div class="customer_info_container d-flex justify-content-between">
+                                                        <div>First Phone Number</div>
+                                                        <div> @Model.order.Delivery.Phone1 </div>
+                                                    </div>
+                                                    <div class="customer_info_container d-flex justify-content-between">
+                                                        <div>Second Phone Number</div>
+                                                        <div> @Model.order.Delivery.Phone2 </div>
+                                                    </div>
+                                                    <div class="customer_info_container d-flex justify-content-between">
+                                                        <div>Email</div>
+                                                        <div> @Model.order.Delivery.Email </div>
+                                                    </div>
+                                                    <div class="customer_info_container d-flex justify-content-between">
+                                                        <div>Address</div>
+                                                        <div> @Model.order.Delivery.Address </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        }
+
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card card-body">
+                                        <div class="p-2">
+                                            <h3 class="card-title font-size-20">Order summary</h3>
+                                        </div>
+                                        <div class="">
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <td><strong>Item Name</strong></td>
+                                                            <td class="text-center"><strong>Price</strong></td>
+                                                            <td class="text-center">
+                                                                <strong>Quantity</strong>
+                                                            </td>
+                                                            <td class="text-end"><strong>Total</strong></td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach (var item in Model.orderItem)
+                                                        {
+                                                            <tr>
+                                                                <td>@item.Item.ItemTlEn</td>
+                                                                <td class="text-center">@item.ItemPrice</td>
+                                                                <td class="text-center">@item.Qty</td>
+                                                                <td class="text-end">@item.Total</td>
+                                                            </tr>
+                                                        }
+                                                        <!-- foreach ($order->lineItems as $line) or some such thing here -->
+
+                                                       
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                          
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div> <!-- end row -->
+
+                        </div>
+                    </div>
+                </div> <!-- end col -->
+            </div> <!-- end row -->
+
+
+
+        </div> <!-- container-fluid -->
+    </div>
+    <script src="~/Public/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Public/js/swiper-bundle.min.js"></script>
+    <script src="~/Public/js/glightbox.min.js"></script>
+    <script src="~/Public/js/overlay-scrollbars.min.js"></script>
+    <script src="~/Public/js/gsap.min.js"></script>
+    <script src="~/Public/js/main.js"></script>
+    <script src="Public/js/minified.js"></script>
+    <script src="Public/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+﻿@page
+@model Pharmacy.Areas.Admin.Pages.Newsletter22.DetailsModel
+@{
+}
+<br />
+<br />
+<br />
+<br />
+ <div class="row">
+        <label class="col-4">
+            @Html.DisplayNameFor(x => x.newsletter.NewsletterId)
+        </label>
+        <label class="col-8">
+            @Html.DisplayFor(x => x.newsletter.NewsletterId)
+        </label>
+        <label class="col-4">
+            @Html.DisplayNameFor(x => x.newsletter.Email)
+        </label>
+        <label class="col-8">
+            @Html.DisplayFor(x => x.newsletter.Email)
+        </label>
+        <label class="col-4">
+            @Html.DisplayNameFor(x => x.newsletter.Date)
+        </label>
+        <label class="col-8">
+            @Html.DisplayFor(x => x.newsletter.Date)
+        </label>
+        
+ </div>
+    <a asp-page="Index" class="btn btn-primary">@sharedResource["Back to List"]</a>

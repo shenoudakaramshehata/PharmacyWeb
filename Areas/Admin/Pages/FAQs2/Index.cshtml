@@ -1,0 +1,79 @@
+﻿@page
+@model Pharmacy.Areas.Admin.Pages.FAQs2.IndexModel
+@{
+
+	<div class="page-content">
+		<div class="container-fluid">
+
+			<div class="row">
+				<div class="col-12">
+					<div class="card">
+						<div class="card-header">
+							<h2 class="card-header d-flex justify-content-between align-items-center">
+								@sharedResource["FAQs"]
+								<a asp-page="Create" class="btn btn-primary">@sharedResource["Create"]  @sharedResource["FAQ"]  </a>
+							</h2>
+						</div>
+						<div class="card-body">
+
+
+
+
+							@(Html.DevExtreme().DataGrid<Pharmacy.Models.FAQ>()
+						.ID("gridContainer")
+
+						.DataSource(ds => ds.Mvc()
+						.Controller("FAQs")
+						.LoadAction("Get")
+
+						.Key("FAQId")
+						)
+						.Columns(columns => {
+
+						columns.AddFor(m => m.QuestionAr).Caption(sharedResource["QuestionAr"]);
+						columns.AddFor(m => m.AnswerAr).Caption(sharedResource["AnswerAr"]);
+						columns.AddFor(m => m.QuestionEn).Caption(sharedResource["QuestionEn"]);
+						columns.AddFor(m => m.AnswerEn).Caption(sharedResource["AnswerEn"]);
+
+
+						columns.Add().Caption(sharedResource["Actions"]).Width(200).Alignment(HorizontalAlignment.Center).CellTemplate(@<text>
+
+									<div class="btn-group" role="group" aria-label="Basic example">
+										<a class="btn btn-primary btn-sm" href="/Admin/FAQs2/Details?id=<%- data.FAQId %>"> <i class="fas fa-eye"></i> </a>
+										<a class="btn btn-success btn-sm" href="/Admin/FAQs2/Edit?id=<%- data.FAQId %>">  <i class="fas fa-edit"></i> </a>
+										<a class="btn btn-danger btn-sm" href="/Admin/FAQs2/Delete?id=<%- data.FAQId %>">  <i class="fas fa-trash"></i> </a>
+									</div>
+								</text>).Width(200);
+
+						})
+						.Paging(paging => paging.PageSize(10))
+						.Pager(pager =>
+						{
+						pager.Visible(true);
+						pager.DisplayMode(GridPagerDisplayMode.Full);
+						pager.ShowPageSizeSelector(true);
+						pager.AllowedPageSizes(new JS("[5, 10, 'all']"));
+						pager.ShowInfo(true);
+						pager.ShowNavigationButtons(true);
+
+						})
+						.HeaderFilter(headerFilter => headerFilter.Visible(true)).ShowColumnLines(true)
+						.ShowRowLines(true)
+						.RowAlternationEnabled(true)
+						.AllowColumnReordering(true)
+						.ShowRowLines(true)
+						.ShowBorders(true)
+						.SearchPanel(searchPanel => searchPanel
+						.Visible(true)
+						.Width(240)
+						.Placeholder(sharedResource["SearchTxt"]))
+						.RemoteOperations(true)
+						.RtlEnabled(bool.Parse(sharedResource["ArLang"]))
+							)
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+}

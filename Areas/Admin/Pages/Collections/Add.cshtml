@@ -1,0 +1,75 @@
+﻿@page
+@model Pharmacy.Areas.Admin.Pages.Collections.AddModel
+@{
+}
+<style>
+    .dx-tagbox-popup-wrapper .dx-list-select-all {
+        display: flex;
+    }
+</style>
+
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-header d-flex justify-content-between align-items-center">
+                            @sharedResource["Add"]  @sharedResource["Collection"]
+                            <a asp-page="Index" class="btn btn-primary"> @sharedResource["Back"]</a>
+                        </h2>
+                    </div>
+                    <div class="card-body">
+                        <br />
+                            @using (Html.BeginForm())
+                            {
+                                @Html.AntiForgeryToken();
+                                @Html.Hidden("ItemIds", "");
+                                @(Html.DevExtreme().Form<Pharmacy.Models.Collection>()
+        .Items(items =>
+        {
+        items.AddSimpleFor(m => m.CollectionTlAr).IsRequired(true).Label(k => k.Text(sharedResource["TlAr"]));
+        items.AddSimpleFor(m => m.CollectionTlEn).IsRequired(true).Label(k => k.Text(sharedResource["TlEn"]));
+        items.AddSimpleFor(m => m.CollectionSort).IsRequired(true).Label(k => k.Text(sharedResource["Sort"])).Editor(e => e.NumberBox().Value(null));
+        items.AddSimpleFor(m => m.IsActive).Label(k => k.Text(sharedResource["IsActive"]));
+        items.AddSimpleFor(m => m.CollectionItem).Label(k => k.Text(sharedResource["Items"]))
+            .IsRequired(true)
+            .Editor(e => e.TagBox()
+            .DataSource(Model.items)
+          .DisplayExpr(Model.Text)
+          
+            .ValueExpr("ItemId")
+            .Placeholder(sharedResource["Select_Items"])
+         
+             .RtlEnabled(bool.Parse(sharedResource["ArLang"]))
+
+            .OnValueChanged(@<text>
+                    function(data) {
+                     $("#ItemIds").val(data.value);
+                    }
+                </text>)
+         .ShowSelectionControls(true)
+               //.CancelButtonText(sharedResource["Cancel"])
+               //.SearchPlaceholder(sharedResource["searching"])
+               .ApplyValueMode(EditorApplyValueMode.UseButtons)
+                );
+
+
+
+            items.AddButton()
+                        .ColSpan(3)
+                        .HorizontalAlignment(HorizontalAlignment.Right)
+                        .ButtonOptions(b => b.Text(sharedResource["Save"])
+                        .Type(ButtonType.Success)
+                        .UseSubmitBehavior(true)).CssClass("invers");
+        })
+)
+
+
+                            }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

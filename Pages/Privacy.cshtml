@@ -1,0 +1,223 @@
+﻿@page
+@model PrivacyModel
+
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Localization
+
+@{
+    ViewData["Title"] = "Privacy Policy";
+    Layout = "";
+
+ 
+}
+<!DOCTYPE html>
+
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="~/public/images/logo/pharmacylogo.jpeg">
+
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700|Roboto:300,400,500,900&display=swap" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+          integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="~/DemoLanding/css/fontawsome.css" type="text/css" />
+    <link rel="stylesheet" href="~/DemoLanding/css/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="~/DemoLanding/css/style.css" type="text/css" />
+
+    <link rel="stylesheet" href="~/DemoLanding/css/dark.css" type="text/css" />
+    <link rel="stylesheet" href="/DemoLanding/css/font-icons.css" type="text/css" />
+    <link rel="stylesheet" href="~/DemoLanding/css/animate.css" type="text/css" />
+    <link rel="stylesheet" href="~/DemoLanding/css/magnific-popup.css" type="text/css" />
+
+    <!-- Landing Demo Specific Stylesheet -->
+    <link rel="stylesheet" href="~/DemoLanding/css/landing.css" type="text/css" />
+    <link rel="stylesheet" href="~/DemoLanding/css/fonts.css" type="text/css" />
+
+    <link rel="stylesheet" href="~/DemoLanding/css/custom.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+</head>
+
+<body class="stretched">
+
+    <!-- Document Wrapper
+    ============================================= -->
+    <div id="wrapper" class="clearfix">
+
+        <!-- Header
+        ============================================= -->
+        <header id="header" class="transparent-header full-header dark no-sticky" data-responsive-class="not-dark">
+            <div id="header-wrap">
+                <div class="container">
+                    <div class="header-row">
+
+                        <!-- Logo
+                        ============================================= -->
+                        <div id="logo" class="border-end-0">
+                            <img src="~/Public/images/logo/Pharmacylogo.jpeg" style="padding:20px;border-radius:10px;" alt="Canvas">
+                        </div><!-- #logo end -->
+
+                        <div id="primary-menu-trigger">
+                            <svg class="svg-trigger" viewBox="0 0 100 100"><path d="m 30,33 h 40 c 3.722839,0 7.5,3.126468 7.5,8.578427 0,5.451959 -2.727029,8.421573 -7.5,8.421573 h -20"></path><path d="m 30,50 h 40"></path><path d="m 70,67 h -40 c 0,0 -7.5,-0.802118 -7.5,-8.365747 0,-7.563629 7.5,-8.634253 7.5,-8.634253 h 20"></path></svg>
+                        </div>
+
+                        <!-- Primary Navigation
+                        ============================================= -->
+                        <nav class="primary-menu not-dark with-arrows">
+                            <ul class="me-0 border-0 menu-container">
+
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    @if ((User.Identity.IsAuthenticated && User.IsInRole("Admin")))
+                                    {
+                                        <li class="menu-item"><a class="menu-link" asp-area="admin" asp-page="/Index" title="Manage"><div>@sharedResource["DashBoard"]</div></a></li>
+
+                                    }
+                                    else
+                                    {
+                                        <li class="menu-item"><a class="menu-link" asp-area="admin" asp-page="/DeliveryOrders/DeliveryList" title="Manage"><div>@sharedResource["Delivery List"]</div></a></li>
+
+                                    }
+                                    <li class="menu-item"><a class="menu-link" asp-page="/Index" title="Manage"><div>Hello @User.Identity.Name!</div></a></li>
+                                    <li class="menu-item"><a class="menu-link" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })"><div>Logout</div></a></li>
+
+                                }
+                                else
+                                {
+                                    <li class="menu-item"><a class="menu-link" href="#"><div>Home</div></a></li>
+
+                                    <li class="menu-item"><a class="menu-link" asp-area="Identity" asp-page="/Account/Login"><div>Login</div></a></li>
+
+                                }
+
+
+                            </ul>
+
+
+                        </nav><!-- #primary-menu end -->
+
+                    </div>
+                </div>
+            </div>
+            <div class="header-wrap-clone"></div>
+        </header><!-- #header end -->
+        <!-- Slider
+        ============================================= -->
+        <section id="slider" class="slider-element dark min-vh-100 include-header" style="background-image: url('DemoLanding/images/1.svg');">
+            <div id="home" class="slider-inner flex-column">
+
+                <div class="vertical-middle">
+                    <div class="container">
+                        <br />
+                      
+                       
+
+                  <div class="row align-items-lg-center g-0">
+
+                            @*<section class="">
+            <div class="pattern-layer"></div>
+            <div class="auto-container">
+                <div class="row clearfix" style="padding-top: 9rem;">*@
+
+                            <!-- Image Column -->
+                            <div class="image-column col-lg-12 col-md-12 col-sm-12">
+
+                                <div class="sec-title">
+                                    <h2>@sharedResource["Privacy Policy"]</h2>
+                                </div>
+                                <ol class="fa-ul" style="text-align:justify">
+                                    <li style="padding-bottom:15px;">
+                                        @sharedResource["Browsing the website does not lead to the registration of any data that allows the identification of visitors to the site, except for the services that request this and include the registration of an electronic form from the visitor.Information security is taken into account through the latest technologies during the electronic processing of services and data storage."]
+
+                                    </li>
+                                    <li style="padding-bottom:15px;">
+                                        @sharedResource["The company uses a set of support software to monitor the flow of information and any attempts of illegal use."]
+
+                                    </li>
+                                    <li style="padding-bottom:15px;">
+                                        @sharedResource["Any user or visitor who performs illegal operations or provides incorrect data is liable to legal accountability according to the laws in force in the State of Kuwait."]
+                                    </li>
+                                    <li style="padding-bottom:15px;">
+                                        @sharedResource["All privacy policies are kept updated from time to time and your use of the Website and Services constitutes your acceptance of this policy."]
+                                    </li>
+                                </ol>
+                            </div>
+
+
+
+                            <!--Block-->
+                            @*</div>*@
+                            @*</section>*@
+
+
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+        </div>
+        </section><!-- #slider end -->        <!-- Content
+        ============================================= -->
+        <!-- Footer
+        ============================================= -->
+        <footer id="footer" class="bg-white border-0">
+
+
+            <div id="copyrights" class="bg-color dark py-5">
+                <div class="container">
+
+                    <div class="row col-mb-30">
+                        <div class="col-md-6 text-center text-md-start">
+                            @sharedResource["Copyright © 2023.All Rights Reserved By"] @sharedResource["Codeware"]<br>
+                            <div class="copyright-links"><a asp-page="Terms" class="text-white-50">Terms of Use</a> / <a asp-page="Privacy" class="text-white-50">Privacy Policy</a></div>
+                        </div>
+
+                        <div class="col-md-6 text-center text-md-end">
+                            <a href="#" class="btn color bg-white rounded px-3 py-2 nott ls0 shadow-sm"><i class="icon-apple1 me-2"></i>App Store</a>
+                            <a href="#" class="btn color bg-white rounded px-3 py-2 nott ls0 shadow-sm ms-2"><i class="icon-google-play me-2"></i>Play Store</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </footer><!-- #footer end -->
+
+    </div><!-- #wrapper end -->
+    <!-- Go To Top
+    ============================================= -->
+    <div id="gotoTop" class="icon-angle-up"></div>
+
+    <!-- JavaScripts
+    ============================================= -->
+    <script src="~/DemoLanding/js/jquery.js"></script>
+    <script src="~/DemoLanding/js/plugins.min.js"></script>
+
+    <!-- Footer Scripts
+    ============================================= -->
+    <script src="~/DemoLanding/js/functions.js"></script>
+
+    <script>
+        jQuery(window).on('pluginCarouselReady', function () {
+            setTimeout(function () {
+                $('.owl-stage').after('<div class="owl-stage-outer-bg"></div>');
+            }, 1000);
+        });
+    </script>
+
+
+</body>
+</html>
+
+
+
+
+

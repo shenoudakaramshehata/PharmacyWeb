@@ -1,0 +1,200 @@
+﻿<header id="header" class="transparent-header full-header dark no-sticky">
+    <div id="header-wrap" class="">
+        <div class="container">
+            <div class="header-row">
+
+                <!-- Logo
+                ============================================= -->
+                <div id="logo" class="border-end-0">
+                    @*<a*@ @*style="border-radius:25px;" href="demo-landing.html" class="standard-logo">*@<img class="standard-logo" style="border-radius:25px;height: 100px; padding:10px;margin:10px;" src="images/logohorse.jpeg" alt="Canvas Logo"></a>
+                    @*<a style="border-radius:25px;" href="demo-landing.html" class="retina-logo">*@@*<img style="border-radius:25px;padding:10px;margin:10px;" src="images/logohorse.jpeg" alt="Canvas Logo" style="height: 100px;"></a>*@
+                </div> @*#logo end*@
+
+                <div id="primary-menu-trigger">
+                    <svg class="svg-trigger" viewBox="0 0 100 100"><path d="m 30,33 h 40 c 3.722839,0 7.5,3.126468 7.5,8.578427 0,5.451959 -2.727029,8.421573 -7.5,8.421573 h -20"></path><path d="m 30,50 h 40"></path><path d="m 70,67 h -40 c 0,0 -7.5,-0.802118 -7.5,-8.365747 0,-7.563629 7.5,-8.634253 7.5,-8.634253 h 20"></path></svg>
+                </div>
+
+                <!-- Primary Navigation
+                ============================================= -->
+                <nav class="primary-menu not-dark with-arrows">
+                    <ul class="me-0 border-0 menu-container">
+
+                        <li class="menu-item">
+                            <a style="color:white" class="menu-link" asp-page="Index">@sharedResource["Home"]</a>
+
+                        </li>
+
+                        <li class="menu-item">
+                            <a style="color:white" class="menu-link" href="#Download">@sharedResource["Download"]</a>
+
+                        </li>
+                        @{
+                            if ((User.Identity.IsAuthenticated && User.IsInRole("Admin")))
+                            {
+                                <li class="menu-item">
+                                    <a style="color:white" class="menu-link" asp-area="Admin">@sharedResource["Dashboard"]</a>
+
+                                </li>
+                            }
+
+
+                            if (!User.Identity.IsAuthenticated)
+                            {
+                                <li class="menu-item">
+                                    <a style="color:white" class="menu-link" asp-area="identity" asp-page="/Account/Login">@sharedResource["LogIn"]</a>
+
+                                </li>
+                            }
+                            if (User.Identity.IsAuthenticated)
+                            {
+                                <li class="menu-item">
+                                    <a style="color:white" class="menu-link" asp-controller="Setting" asp-action="Logout">@sharedResource["Logout"]</a>
+
+                                </li>
+                            }
+                        }
+                        <li>
+                            @*<div class="dropdown d-none d-md-block me-2">*@
+                            <a class="btn header-item waves-effect" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                @{
+                                    var locale = Context.Request.HttpContext.Features.Get<IRequestCultureFeature>();
+                                    var BrowserCulture = locale.RequestCulture.UICulture.ToString();
+                                    //English
+                                    if (BrowserCulture == "en-US")
+                                    {
+                                        <span style="color:white">@sharedResource["Language"] </span>  <img asp-coto class="ms-2" src="/Admin/assets/images/flags/us_flag.jpg" alt="Header Language" style="height:16px; width:2rem">
+                                    }
+                                    else
+                                    {
+                                        <span style="color:white">@sharedResource["Language"] </span>  <img asp-coto class="ms-2" src="/Admin/assets/images/flags/language-6.png" alt="Header Language" style="height:16px; width:2rem">
+                                    }
+                                }
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end">
+
+
+                                <a asp-controller="Setting" asp-action="ChangeLanguage" asp-route-culture="en-US" asp-route-url="@Context.Request.Path@Context.Request.QueryString.ToString()" class="dropdown-item notify-item" onclick="ChangeLang('en')">
+                                    <img src="/Admin/assets/images/flags/us_flag.jpg" alt="user-image" height="12"> <span style="color:white" class="align-middle"> English </span>
+                                </a>
+                                <a asp-controller="Setting" asp-action="ChangeLanguage" asp-route-culture="ar-EG" asp-route-url="@Context.Request.Path@Context.Request.QueryString.ToString()" class="dropdown-item notify-item" onclick="ChangeLang('ar')">
+                                    <img width="18" height="18" src="/Admin/assets/images/flags/language-6.png" alt="user-image"> <span style="color:white" class="align-middle"> اللغة العربية  </span>
+                                </a>
+                            </div>
+                            @*</div>*@
+                        </li>
+                        @*<li class="menu-item"><a class="menu-link" href="/Admin" style=""><div>Login</div></a></li>*@
+                    </ul>
+
+                </nav><!-- #primary-menu end -->
+
+            </div>
+        </div>
+    </div>
+    <div class="header-wrap-clone" style="height: 101px;"></div>
+</header><!-- #header end -->
+<!--@*<div class="dropdown d-none d-md-block me-2">*@-->
+<!--<a class="btn header-item waves-effect" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+   </span> <img asp-coto class="ms-2" src="/Admin/assets/images/flags/language-6.png" alt="Header Language" height="16"> } }
+</a>
+<div class="dropdown-menu dropdown-menu-end">
+
+
+    <a asp-controller="Setting" asp-action="ChangeLanguage" style="color:black" asp-route-culture="en-US" asp-route-url="@Context.Request.Path@Context.Request.QueryString.ToString()" class="dropdown-item notify-item" onclick="ChangeLang('en')">
+        <img src="/Admin/assets/images/flags/us_flag.jpg" alt="user-image" height="12"> <span class="align-middle"> English </span>
+    </a>
+    <a asp-controller="Setting" asp-action="ChangeLanguage" asp-route-culture="ar-EG" style="color:black" asp-route-url="@Context.Request.Path@Context.Request.QueryString.ToString()" class="dropdown-item notify-item" onclick="ChangeLang('ar')">
+        <img width="18" height="18" src="/Admin/assets/images/flags/language-6.png" alt="user-image"> <span class="align-middle"> اللغة العربية  </span>
+    </a>
+</div>-->
+@*</div>*@
+<!--</li>
+</ul>-->
+<div class="header-bar d-lg-none">
+    <span></span>
+    <span></span>
+    <span></span>
+</div>
+
+
+
+@*<div class="header-right cl-xl-black">
+        <select class="select-bar">
+            <option value="en">
+                <div>
+                    <a asp-controller="Setting" asp-action="ChangeLanguage" asp-route-culture="en-US" asp-route-url="@Context.Request.Path@Context.Request.QueryString.ToString()" class="dropdown-item notify-item">
+                        <img src="/Admin/assets/images/flags/us_flag.jpg" alt="user-image" height="12"> <span class="align-middle"> English </span>
+                    </a>
+                </div>
+            </option>
+            <option value="ar">
+                <a asp-controller="Setting" asp-action="ChangeLanguage" asp-route-culture="ar-EG" asp-route-url="@Context.Request.Path@Context.Request.QueryString.ToString()" class="dropdown-item notify-item">
+                    <img width="18" height="18" src="/Admin/assets/images/flags/language-6.png" alt="user-image"> <span class="align-middle"> اللغة العربية  </span>
+                </a>
+            </option>
+        </select>
+        <a href="#0" class="header-button d-none d-sm-inline-block cl-xl-black">Get Mosto</a>
+    </div>*@
+@*</div>
+        </div>
+    </header>*@
+
+<script>
+    function ChangeLang(lang) {
+
+        var anch1 = document.getElementById("ang1");
+        var anch2 = document.getElementById("ang2");
+        var masterPage = document.getElementById("masterPageId");
+        if (lang == "en") {
+            localStorage.setItem("lang", "en");
+
+        }
+        if (lang == "ar") {
+
+            localStorage.setItem("lang", "ar");
+
+        }
+
+    }
+    window.addEventListener('DOMContentLoaded', (event) => {
+        var masterPage = document.getElementById("masterPageId");
+        if (localStorage.getItem("lang") != "") {
+            if (localStorage.getItem("lang") == "en") {
+                masterPage.dir = "ltr";
+                console.log("Aya")
+                document.getElementById("masterbodyid").style.textAlign = "left"
+
+
+            }
+            else if (localStorage.getItem("lang") == "ar") {
+
+
+                masterPage.dir = "rtl"
+                console.log("Aya M")
+                console.log(document.getElementById("masterbodyid"))
+                document.getElementById("masterbodyid").style.textAlign = "right"
+
+
+
+                //var stylesheet1 = document.getElementById("stylear");
+                //var stylesheet2 = document.getElementById("googleid");
+                //var stylesheet3 = document.getElementById("fontid");
+                //var stylesheet4 = document.getElementById("fontgoogleid");
+                ////stylesheet1.setAttribute('href', "/Admin/css/ar.css");
+                //stylesheet2.setAttribute('href', 'https://fonts.gstatic.com');
+                //stylesheet3.setAttribute('href', 'https://fonts.gstatic.com');
+                //stylesheet4.setAttribute('href', 'https://fonts.googleapis.com/css2?family=Cairo&display=swap');
+                //document.getElementsByClassName("invers").dir = "rtl"
+                //document.getElementsByClassName("invers").style.textAlign = "right"
+
+
+            }
+        }
+    });
+
+        //var LanguageDropdown = document.getElementById("LanguageDropDown");
+        //var profile = document.getElementsByClassName("profile_menu")[0];
+
+        //LanguageDropDown.addEventListener("click", () => {
+        //    profile.classList.toggle("d-none");
+        //});
+</script>

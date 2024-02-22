@@ -1,0 +1,47 @@
+﻿@page
+@model Pharmacy.Areas.Admin.Pages.DeliveryAgent.AddDeliveryAgentModel
+@{
+}
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-header d-flex justify-content-between align-items-center">
+                            @sharedResource["Add"]  @sharedResource["Delivery Agent"]
+                            <a asp-page="DeliveryAgentIndex" class="btn btn-primary"> @sharedResource["Back"]</a>
+                        </h2>
+                    </div>
+                    <div class="card-body">
+
+                        <br />
+                        <form id="form" method="post" enctype="multipart/form-data">
+                            @(Html.DevExtreme().Form<Pharmacy.Models.Delivery>()
+        .Items(items =>
+        {
+
+
+            items.AddSimpleFor(m => m.Title).IsRequired(true).Label(k => k.Text(sharedResource["Agent Title"]));
+            items.AddSimpleFor(m => m.Address).IsRequired(true).Label(k => k.Text(sharedResource["Agent Address"]));
+            items.AddSimpleFor(m => m.Phone1).IsRequired(true).Label(k => k.Text(sharedResource["Agent First Phone"]));
+            items.AddSimpleFor(m => m.Phone2).Label(k => k.Text(sharedResource["Agent Second Phone"]));
+                                    items.AddSimpleFor(m => m.Email).IsRequired(true).Label(k => k.Text(sharedResource["Agent Email"])).Editor(e => e.TextBox().Mode(TextBoxMode.Email));
+                                    items.AddSimpleFor(m => m.Password).IsRequired(true).Label(k => k.Text(sharedResource["Agent Password"])).ValidationRules(e => e.AddRequired().Message("Password is Required")).Editor(e => e.TextBox().Mode(TextBoxMode.Password));
+
+            items.AddSimpleFor(m => m.Description).IsRequired(true).Label(k => k.Text(sharedResource["Agent Description"])).Editor(e=>e.TextArea());
+                                    items.AddButton()
+                                    .ColSpan(3)
+                                    .HorizontalAlignment(HorizontalAlignment.Right)
+                                    .ButtonOptions(b => b.Text(sharedResource["Save"])
+                                    .Type(ButtonType.Success)
+                                    .UseSubmitBehavior(true)).CssClass("invers");
+        })
+)
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

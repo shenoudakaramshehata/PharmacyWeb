@@ -1,0 +1,189 @@
+﻿@page
+@model Pharmacy.Areas.Admin.Pages.Items.DetailsModel
+@{
+}
+<div class="page-content">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-header d-flex justify-content-between align-items-center">
+                            @sharedResource["Details"]
+                            <a asp-page="Index" class="btn btn-primary"> @sharedResource["Back"]</a>
+                        </h2>
+                    </div>
+                    <div class="card-body">
+
+                        <div style="padding-top:20px;padding-left:20px;padding-right:20px">
+
+                            <div class="row">
+
+                                <h4> @sharedResource["Informations"] </h4>
+                                <hr />
+                                <div class="col-md-12 col-lg-12 mt-4">
+
+                                    <dl class="row">
+                                        <dt class="col-sm-2">@sharedResource["TlAr"]  </dt>
+                                        <dd class="col-sm-10"> @Model.item.ItemTlAr </dd>
+                                    </dl>
+                                </div>
+
+                                <div class="col-md-12 col-lg-12 mt-4">
+                                    <dl class="row">
+                                        <dt class="col-sm-2">@sharedResource["TlEn"]  </dt>
+                                        <dd class="col-sm-10"> @Model.item.ItemTlEn </dd>
+                                    </dl>
+                                </div>
+
+                                <div class="col-md-12 col-lg-12 mt-4">
+                                    <dl class="row">
+                                        <dt class="col-sm-2">@sharedResource["Remarks"]  </dt>
+                                        <dd class="col-sm-10"> @Model.item.Remarks </dd>
+                                    </dl>
+                                    
+                                </div>
+                                <div class="col-md-12 col-lg-12 mt-4">
+                                    <dl class="row">
+                                        <dt class="col-sm-2">@sharedResource["Description"]  </dt>
+                                        <dd class="col-sm-10"> @Model.item.Description </dd>
+                                    </dl>
+                                </div>
+                                <div class="col-md-12 col-lg-12 mt-4">
+                                    <dl class="row">
+                                        <dt class="col-sm-2">@sharedResource["Price"]  </dt>
+                                        <dd class="col-sm-10"> @Model.item.Price </dd>
+                                    </dl>
+                                </div>
+                                <div class="col-md-12 col-lg-12 mt-4">
+
+                                    <dl class="row">
+                                        <dt class="col-sm-2">@sharedResource["Stock"]  </dt>
+                                        <dd class="col-sm-10"> @Model.item.Stock </dd>
+                                    </dl>
+                                </div>
+
+                                <div class="col-md-12 col-lg-12 mt-4">
+                                    <dl class="row">
+                                        <dt class="col-sm-2">@sharedResource["IsActive"]  </dt>
+                                        <dd class="col-sm-10">
+                                            @Html.CheckBoxFor(m => m.item.IsActive.Value, new { @disabled = "disabled" })
+                                        </dd>
+                                    </dl>
+                                </div>
+                                <div class="col-md-12 col-lg-12 mt-4">
+                                    <dl class="row">
+                                        <dt class="col-sm-2">@sharedResource["Picture"]  </dt>
+                                        <dd class="col-sm-10">
+                                            <img style="border-radius: 13%;" width="250" height="250" class="img-fluid" src="~/Images/Item/@Model.item.ItemPic" />
+                                        </dd>
+                                    </dl>
+
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                @{
+                                    if (Model.item.CategoryId != 0)
+                                    {
+                                        <div class="col-md-12 col-lg-6 mt-4">
+                                            <h4> @sharedResource["Category"] </h4>
+                                            <hr />
+
+                                            <div class="d-flex justify-content-between">
+                                                <div>@sharedResource["TlAr"]  </div>
+                                                <div> @Model.item.Category.CategoryTlAr </div>
+                                            </div>
+                                            <div class="d-flex justify-content-between">
+                                                <div>@sharedResource["TlEn"]  </div>
+                                                <div> @Model.item.Category.CategoryTlEn </div>
+                                            </div>
+                                        </div>
+                                    }
+
+
+                                }
+
+
+                                @{
+                                    if (Model.item.BrandId != null)
+                                    {
+                                        <div class="col-md-12 col-lg-6 mt-4">
+                                            <h4> @sharedResource["Brand"] </h4>
+                                            <hr />
+                                            <div class="d-flex justify-content-between">
+                                                <div>@sharedResource["TlAr"]  </div>
+                                                <div> @Model.item.Brand.BrandTlAr </div>
+                                            </div>
+                                            <div class="d-flex justify-content-between">
+                                                <div>@sharedResource["TlEn"]  </div>
+                                                <div> @Model.item.Brand.BrandTlEn </div>
+                                            </div>
+
+                                        </div>
+                                    }
+                                }
+
+
+                            </div>
+
+                            <div class="row" style="margin-top:25px" id="images_container">
+                                <div class="col-12">
+                                    <h3>@sharedResource["Item_Images"]</h3>
+                                    <hr />
+                                    <div id="item_images" class="d-flex justify-content-center align-items-center">
+                                        <div class="loader">Loading...</div>
+                                        <div class="message d-none"> @sharedResource["There Are No Images For This Item"] </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    window.addEventListener('load', (event) => {
+        console.log('page is fully loaded');
+        console.log(event);
+        fetch('http://' + location.host + '/Api/ItemImages/GetImagesForItem?id=' + window.location.search.split("=")[1])
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                var item_images = document.getElementById("item_images");
+                document.getElementsByClassName("loader")[0].remove();
+
+
+                for (const property in data) {
+                    console.log(data[property]);
+                    var img = document.createElement("img");
+                    img.src = "/Images/Item/" + data[property].ImageUrl;
+                    img.width = 150;
+                    img.classList.add("m-3");
+                    var div = document.createElement("div");
+                    div.classList.add("position-relative");
+                    div.classList.add(data[property].ItemImageId);
+                    div.appendChild(img);
+                    var x = document.createElement("div");
+
+                    x.id = data[property].ItemImageId;
+                    div.appendChild(x);
+                    item_images.appendChild(div);
+
+                }
+
+                if (data.length <= 0) {
+                    document.getElementsByClassName("message")[0].classList.remove("d-none");
+                }
+
+            });
+
+    });
+
+
+</script>

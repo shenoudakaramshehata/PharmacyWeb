@@ -1,0 +1,246 @@
+﻿@page
+@model Pharmacy.Areas.Admin.Pages.Items.EditModel
+@{
+}
+
+
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-header d-flex justify-content-between align-items-center">
+                            @sharedResource["Edit"]  @sharedResource["Item"]
+                            <a asp-page="Index" class="btn btn-primary"> @sharedResource["Back"]</a>
+                        </h2>
+                    </div>
+                    <div class="card-body">
+                        <br />
+                        <form id="form" method="post" enctype="multipart/form-data">
+
+                            @(Html.DevExtreme().Form<Pharmacy.Models.Item>()
+                                 .FormData(Model.item)
+        .Items(items =>
+        {
+
+
+        items.AddSimpleFor(m => m.CategoryId).IsRequired(true)
+    .Editor(e => e
+    .Lookup()
+    .DataSource(ds => ds.WebApi().Controller("Items").LoadAction("CategoriesLookup").Key("Value"))
+    .ValueExpr("Value")
+    .DisplayExpr("Text")
+                                    .RtlEnabled(bool.Parse(sharedResource["ArLang"]))
+
+     .ShowClearButton(true)
+                            .Placeholder(sharedResource["Select Category"])
+
+                                                    .ClearButtonText(sharedResource["Clear"])
+                                                    .CancelButtonText(sharedResource["Cancel"])
+                                                    .SearchPlaceholder(sharedResource["searching"])
+    ).Label(k => k.Text(sharedResource["Category"]));
+
+                                    items.AddSimpleFor(m => m.BrandId).IsRequired(true)
+    .Editor(e => e
+    .Lookup()
+    .DataSource(ds => ds.WebApi().Controller("Items").LoadAction("BrandsLookup").Key("Value"))
+    .ValueExpr("Value")
+    .DisplayExpr("Text")
+                                    .RtlEnabled(bool.Parse(sharedResource["ArLang"]))
+
+     .ShowClearButton(true)
+                        .Placeholder(sharedResource["Select Brand"])
+                                                    .ClearButtonText(sharedResource["Clear"])
+                                                    .CancelButtonText(sharedResource["Cancel"])
+                                                    .SearchPlaceholder(sharedResource["searching"])
+    ).Label(k => k.Text(sharedResource["Brand"]));
+        items.AddSimpleFor(m => m.ItemTlAr).IsRequired(true).Label(k => k.Text(sharedResource["TlAr"]));
+        items.AddSimpleFor(m => m.ItemTlEn).IsRequired(true).Label(k => k.Text(sharedResource["TlEn"]));
+           items.AddSimpleFor(m => m.Price).IsRequired(true).Label(k => k.Text(sharedResource["Price"])).Editor(e => e.NumberBox().Min(1));
+           items.AddSimpleFor(m => m.Stock).IsRequired(true).Label(k => k.Text(sharedResource["Stock"])).Editor(e => e.NumberBox().Min(1));
+        items.AddSimpleFor(m => m.Description).Editor(c => c.TextArea()).IsRequired(true).Label(k => k.Text(sharedResource["Description"]));
+        items.AddSimpleFor(m => m.Remarks).Editor(c => c.TextArea()).IsRequired(true).Label(k => k.Text(sharedResource["Remarks"]));
+        items.AddSimpleFor(m => m.IsActive).Label(k => k.Text(sharedResource["IsActive"]));
+
+
+        items.AddSimple().Label(k => k.Text(sharedResource["Picture"])).Template(@<text>
+                        <div>
+                    <img width="250" height="250" src="/Images/Item/@Model.item.ItemPic" alt="Item Picture"/>
+                </div>
+                            </text> );
+
+            items.AddSimpleFor(m => m.ItemPic).Label(k => k.Text(sharedResource["Change_Picture"])).Template(@<text>
+
+
+                            @(Html.DevExtreme().FileUploader()
+                                        .Name("MainImage")
+                                        .SelectButtonText(sharedResource["Change_Picture"])
+                                        .LabelText("")
+                                        .Accept("image/*")
+                                        .UploadMode(FileUploadMode.UseForm)
+                                         .RtlEnabled(bool.Parse(sharedResource["ArLang"]))
+                            .Height(70)
+                                                        )
+
+                            </text> );
+
+
+
+
+        })
+
+
+)
+
+                            <div class="row" style="margin-top:25px" id="images_container">
+                                <div class="col-12">
+                                    <h3>@sharedResource["Item_Images"]</h3>
+                                    <hr />
+                                    <div id="item_images" class="d-flex justify-content-center align-items-center">
+                                        <div class="loader">Loading...</div>
+                                        <div class="message d-none"> There Are No Images For This Item </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
+
+                            <div class="col-md-12 col-lg-6">
+                                <h3> @sharedResource["Add_More_Images"] </h3>
+                                <hr />
+                                <div id="fileuploader">
+                                    <div class="widget-container">
+                                        @(Html.DevExtreme().FileUploader()
+                                    .ID("file-uploader")
+                                    .Name("myFile")
+                                    .Accept("image/*")
+                                    .UploadMode(FileUploadMode.UseForm)
+                                    .Multiple(true)
+                                    .UploadUrl(Url.Action("Upload", "FileUploader"))
+                                    .OnValueChanged("fileUploader_valueChanged")
+                                   .SelectButtonText(sharedResource["Select_photo"])
+                                    .RtlEnabled(bool.Parse(sharedResource["ArLang"]))
+                                       .Height(70)
+                                    )
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
+                            <div class="button invers" style="margin-top:10px">
+
+                                @(Html.DevExtreme().Button()
+                .ID("button")
+                .Text(sharedResource["Save"])
+                .Type(ButtonType.Success)
+                .UseSubmitBehavior(true)
+
+                )
+                            </div>
+                        </form>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.addEventListener('load', (event) => {
+        console.log('page is fully loaded');
+        console.log(event);
+        fetch('http://' + location.host + '/Api/ItemImages/GetImagesForItem?id=' + window.location.search.split("=")[1])
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                var item_images = document.getElementById("item_images");
+                document.getElementsByClassName("loader")[0].remove();
+
+
+                for (const property in data) {
+                    console.log(data[property]);
+                    var img = document.createElement("img");
+                    img.src = "/Images/Item/" + data[property].ImageUrl;
+                    img.width = 150;
+                    img.classList.add("m-3");
+                    var div = document.createElement("div");
+                    div.classList.add("position-relative");
+                    div.classList.add(data[property].ItemImageId);
+                    div.appendChild(img);
+                    var x = document.createElement("div");
+                    x.style.right = 0;
+                    x.style.top = 0;
+                    x.style.cursor = "pointer";
+                    x.addEventListener("click", (e) => removePic(e))
+
+                    x.classList.add("fas");
+                    x.classList.add("fa-times");
+                    x.classList.add("position-absolute")
+                    x.innerHTML = "x";
+
+                    x.id = data[property].ItemImageId;
+                    div.appendChild(x);
+
+                    item_images.appendChild(div);
+
+                }
+
+                if (data.length <= 0) {
+                    document.getElementsByClassName("message")[0].classList.remove("d-none");
+                }
+
+            });
+
+    });
+
+
+    function removePic(e) {
+        console.log("remove pic")
+        console.log(e);
+        console.log(e.target.id);
+
+        fetch('http://' + location.host + `/Api/ItemImages/RemoveImageById?id=${e.target.id}`, {
+            method: 'POST'
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log("remove from dom");
+                console.log(data);
+                var myobj = document.getElementsByClassName(data)[0];
+                myobj.remove();
+
+            }).catch(err => {
+                console.log("rror")
+            })
+    }
+
+    function getFileUploaderInstance() {
+        return $("#file-uploader").dxFileUploader("instance");
+    }
+
+    function fileUploader_valueChanged(e) {
+        var files = e.value;
+    }
+
+    function acceptOption_changed(e) {
+        getFileUploaderInstance().option("accept", e.value);
+    }
+
+    function uploadMode_changed(e) {
+        getFileUploaderInstance().option("uploadMode", e.value);
+    }
+
+    function multipleOption_changed(e) {
+        getFileUploaderInstance().option("multiple", e.value);
+    }
+</script>

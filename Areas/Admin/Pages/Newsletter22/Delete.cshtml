@@ -1,0 +1,34 @@
+﻿@page
+@model Pharmacy.Areas.Admin.Pages.Newsletter22.DeleteModel
+@{
+}
+
+<br />
+<br />
+<br />
+<br />
+<div class="row">
+    <label class="col-4">
+        @Html.DisplayNameFor(x => x.newsletter.NewsletterId)
+    </label>
+    <label class="col-8">
+        @Html.DisplayFor(x => x.newsletter.NewsletterId)
+    </label>
+    <label class="col-4">
+        @Html.DisplayNameFor(x => x.newsletter.Email)
+    </label>
+    <label class="col-8">
+        @Html.DisplayFor(x => x.newsletter.Email)
+    </label>
+    <label class="col-4">
+        @Html.DisplayNameFor(x => x.newsletter.Date)
+    </label>
+    <label class="col-8">
+        @Html.DisplayFor(x => x.newsletter.Date)
+    </label>
+    <form method="post">
+        <input type="submit" value="Delete" class="btn btn-danger" asp-route-id="@Model.newsletter.NewsletterId" />
+    </form>
+
+</div>
+<a asp-page="Index" class="btn btn-primary">@sharedResource["Back to List"]</a>

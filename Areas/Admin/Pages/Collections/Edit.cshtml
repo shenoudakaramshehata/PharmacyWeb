@@ -1,0 +1,74 @@
+﻿@page
+@model Pharmacy.Areas.Admin.Pages.Collections.EditModel
+@{
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-header d-flex justify-content-between align-items-center">
+                            @sharedResource["Edit"]  @sharedResource["Brand"]
+                            <a asp-page="Index" class="btn btn-primary"> @sharedResource["Back"]</a>
+                        </h2>
+                    </div>
+                    <div class="card-body">
+                        <br />
+                            @using (Html.BeginForm())
+                            {
+                                @Html.AntiForgeryToken();
+
+                                @Html.Hidden("ItemIds", "");
+                                @(Html.DevExtreme().Form<Pharmacy.Models.Collection>()
+                                 .FormData(Model.collection)
+        .Items(items =>
+        {
+
+
+        items.AddSimpleFor(m => m.CollectionId).Visible(false);
+        items.AddSimpleFor(m => m.CollectionTlAr).Label(k => k.Text(sharedResource["TlAr"])).IsRequired(true);
+        items.AddSimpleFor(m => m.CollectionTlEn).Label(k => k.Text(sharedResource["TlEn"])).IsRequired(true);
+        items.AddSimpleFor(m => m.CollectionSort).Label(k => k.Text(sharedResource["Sort"])).IsRequired(true);
+        items.AddSimpleFor(m => m.IsActive).Label(k => k.Text(sharedResource["IsActive"]));
+        items.AddSimpleFor(m => m.CollectionItem).Label(k => k.Text(sharedResource["Items"]))
+        .IsRequired(true)
+        .Editor(e => e.TagBox()
+        .DataSource(Model.items)
+                .DisplayExpr(Model.Text)
+        .ValueExpr("ItemId")
+        .Placeholder(sharedResource["Select_Items"])
+         .RtlEnabled(bool.Parse(sharedResource["ArLang"]))
+        .Value(Model.itemsSelected.ToArray())
+            .OnValueChanged(@<text>
+                    function(data) {
+                     $("#ItemIds").val(data.value);
+                    }
+                </text>)
+            .OnContentReady(
+            @<text>
+                    function(data) {
+                     $("#ItemIds").val(@string.Join(",", Model.itemsSelected.ToArray()));
+
+                    }
+                </text>
+            )
+
+         .ShowSelectionControls(true)
+         .ApplyValueMode(EditorApplyValueMode.UseButtons)
+                );
+            items.AddButton()
+                        .ColSpan(3)
+                        .ButtonOptions(b => b.Text(sharedResource["Save"])
+                        .Type(ButtonType.Success)
+                        .UseSubmitBehavior(true)).CssClass("invers");
+        })
+)
+                            }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
